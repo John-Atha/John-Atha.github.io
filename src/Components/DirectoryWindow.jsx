@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Contents from './Contents';
 import { Window, WindowBar, WindowPill, NoBgButton, WindowButtons, ActiveWindows } from './styles';
+import '../App.css';
 
 function DirectoryWindow(props) {
     const [dir, setDir] = useState(props.dir);
