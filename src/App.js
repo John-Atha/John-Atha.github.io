@@ -8,8 +8,10 @@ function App() {
   const [showingWindow, setShowingWindow] = useState(false);
   const [currentDirectory, setCurrentDirectory] = useState(null);
   const [openDirectories, setOpenDirectories] = useState([]);
+  const [lastDirAction, setLastDirAction] = useState(null);
 
   const addDir = (dir) => {
+    setLastDirAction('addittion');
     if (openDirectories.includes(dir)) {
       setCurrentDirectory(dir);
     }
@@ -20,6 +22,7 @@ function App() {
   }
 
   const removeDir = (dir) => {
+    setLastDirAction('removal');
     setOpenDirectories(openDirectories.filter((value) => { return value !== dir }))
   }
 
@@ -30,12 +33,21 @@ function App() {
 
   useEffect(() => {
     if (openDirectories.length) {
-      setCurrentDirectory(openDirectories[openDirectories.length-1]);
+      // I add a new dir, so I set this one as current...
+      if (lastDirAction==='addittion') {
+        setCurrentDirectory(openDirectories[openDirectories.length-1]);
+      }
+      // I remove the current dir, so I do not have to set another as current...
+      else if (!openDirectories.includes(currentDirectory)) {
+        setCurrentDirectory(openDirectories[openDirectories.length-1]);
+        console.log('I enable the last one.')
+      }
     }
-    else {
+    else if (!openDirectories.length) {
       setShowingWindow(false);
       setCurrentDirectory(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openDirectories])
 
   return (
@@ -52,7 +64,6 @@ function App() {
           dir={currentDirectory}
           addDir={addDir}
           setShowingWindow={setShowingWindow}
-          addDir={addDir}
           removeDir={removeDir}
           openDirectories={openDirectories}
           closeAll={closeAll} />

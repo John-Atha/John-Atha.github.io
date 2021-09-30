@@ -12,6 +12,13 @@ export const Container = styled.div`
     }
     cursor: default;
 `
+
+export const ContentsContainer = styled.div`
+    padding: 10px;
+    display: flex;
+    flex-flow: row wrap;
+`
+
 export const Name = styled.h4`
     text-align: center;
     color: white;
@@ -62,19 +69,25 @@ export const WindowBar = styled.div`
     flex-flow: row wrap;
     position: absolute;
     top: 0px;
-    height: 30px;
+    height: 50px;
     width: 100%;
 `
 
-export const WindowName = styled.button`
+export const WindowPill = styled.div`
     ${props=>props.current && `
         background-color: rgb(184, 122, 68);
     `}
     ${props=>!props.current && `
         background-color: inherit;
     `}
+    display: flex;
     border-right: 1px solid grey;
     padding: 3px;
+`
+
+export const NoBgButton = styled.button`
+    background-color: inherit;
+    border: none;
 `
 
 export const WindowButtons = styled.div`
@@ -87,7 +100,8 @@ export const WindowButtons = styled.div`
 
 export const ActiveWindows = styled.div`
     display: flex;
-    flex-flow: row wrap;
-    width: 90%;
+    width: 85%;
     overflow-x: auto;
+    overflow-y: hidden;
+    height: inherit;
 `

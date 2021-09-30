@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Error } from './styles.js';
+import { ContentsContainer, Error } from './styles.js';
 import Directory from './Directory.jsx';
 import File from './File.jsx';
 
@@ -12,7 +12,7 @@ function Contents(props) {
 
     if (contents && contents.length) {
         return (
-            <div style={{'padding': '10px'}}>
+            <ContentsContainer>
                 {contents.map((value, index) => {
                     if (value.type==='directory') {
                         return (
@@ -20,14 +20,16 @@ function Contents(props) {
                                 dir={value}
                                 key={`${value.type}-${value.id}`}
                                 addDir={props.addDir}
-                                setShowingWindow={props.setShowingWindow} />
+                                setShowingWindow={props.setShowingWindow}
+                            />
                         )
                     }
                     else if (value.type==='file') {
                         return (
                             <File
                                 file={value}
-                                key={`${value.type}-${value.id}`} />
+                                key={`${value.type}-${value.id}`}
+                            />
                         )
                     }
                     else {
@@ -36,7 +38,7 @@ function Contents(props) {
                         )
                     }
                 })}
-            </div>
+            </ContentsContainer>
         )
     }
     else {

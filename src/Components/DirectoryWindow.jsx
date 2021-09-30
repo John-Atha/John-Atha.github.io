@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Contents from './Contents';
-import { Window, WindowBar, WindowName, WindowButtons, ActiveWindows } from './styles';
+import { Window, WindowBar, WindowPill, NoBgButton, WindowButtons, ActiveWindows } from './styles';
 
 function DirectoryWindow(props) {
     const [dir, setDir] = useState(props.dir);
@@ -16,12 +16,17 @@ function DirectoryWindow(props) {
                 <ActiveWindows>
                     {props.openDirectories.map((value) => {
                         return(
-                            <WindowName
+                            <WindowPill
                                 current={value===dir}
-                                key={`${value.type}-${value.id}`}
-                                onClick={()=>props.addDir(value)}>
-                                {value.name}
-                            </WindowName>
+                                key={`${value.type}-${value.id}`}>
+                                    <NoBgButton onClick={()=>props.addDir(value)}>
+                                        {value.name}
+                                    </NoBgButton>
+                                    <NoBgButton onClick={()=>props.removeDir(value)} >
+                                        &#10006;
+                                    </NoBgButton>
+
+                            </WindowPill>
                         )
                     })}
                 </ActiveWindows>
@@ -37,7 +42,7 @@ function DirectoryWindow(props) {
                     </button>
                 </WindowButtons>
             </WindowBar>
-            <div style={{'marginTop': '40px'}} />
+            <div style={{'marginTop': '60px'}} />
             <Contents
                 contents={dir.contents}
                 setShowingWindow={props.setShowingWindow}
