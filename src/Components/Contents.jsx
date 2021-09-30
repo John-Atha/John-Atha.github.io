@@ -10,18 +10,24 @@ function Contents(props) {
         setContents(props.contents);
     }, [props.contents])
 
-    if (contents.length) {
+    if (contents && contents.length) {
         return (
             <div style={{'padding': '10px'}}>
                 {contents.map((value, index) => {
                     if (value.type==='directory') {
                         return (
-                            <Directory dir={value} key={index} open={props.setCurrentDir} setShowingWindow={props.setShowingWindow} />
+                            <Directory
+                                dir={value}
+                                key={`${value.type}-${value.id}`}
+                                addDir={props.addDir}
+                                setShowingWindow={props.setShowingWindow} />
                         )
                     }
                     else if (value.type==='file') {
                         return (
-                            <File file={value} key={index} />
+                            <File
+                                file={value}
+                                key={`${value.type}-${value.id}`} />
                         )
                     }
                     else {

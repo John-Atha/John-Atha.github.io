@@ -10,13 +10,8 @@ function Directory(props) {
         setDir(props.dir);
     }, [props.dir])
 
-    const open = () => {
-        props.open(dir);
-        props.setShowingWindow(true);
-    }
-
     return (
-        <Container onDoubleClick={open}>
+        <Container onDoubleClick={()=>props.addDir(dir)}>
             <Img src={folder_icon}/>
             <Name>{dir.name}</Name>
         </Container>

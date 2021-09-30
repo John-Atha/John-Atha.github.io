@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Contents from './Contents';
-import { Window, WindowBar, WindowName, WindowButtons } from './styles';
+import { Window, WindowBar, WindowName, WindowButtons, ActiveWindows } from './styles';
 
 function DirectoryWindow(props) {
     const [dir, setDir] = useState(props.dir);
@@ -13,7 +13,18 @@ function DirectoryWindow(props) {
     return (
         <Window fullScreen={fullScreen}>
             <WindowBar>
-                <WindowName current={true}>{dir.name}</WindowName>
+                <ActiveWindows>
+                    {props.openDirectories.map((value) => {
+                        return(
+                            <WindowName
+                                current={value===dir}
+                                key={`${value.type}-${value.id}`}
+                                onClick={()=>props.addDir(value)}>
+                                {value.name}
+                            </WindowName>
+                        )
+                    })}
+                </ActiveWindows>
                 <WindowButtons>
                     <button onClick={()=>props.setShowingWindow(false)}>
                         &#10134;
@@ -21,13 +32,19 @@ function DirectoryWindow(props) {
                     <button onClick={()=>setFullScreen(true)}>
                         &#11035;
                     </button>
-                    <button onClick={()=>{props.setShowingWindow(false);props.setCurrentDir(null);}} >
+                    <button onClick={props.closeAll} >
                         &#10060;
                     </button>
                 </WindowButtons>
             </WindowBar>
             <div style={{'marginTop': '40px'}} />
-            <Contents contents={dir.contents} setCurrentDir={props.setCurrentDir}  setShowingWindow={props.setShowingWindow}/>
+            <Contents
+                contents={dir.contents}
+                setShowingWindow={props.setShowingWindow}
+                addDir={props.addDir}
+                removeDir={props.removeDir}
+                openDirectories={props.openDirectories}
+                currentDirectory={props.currentDirectory} />
         </Window>
     )
 }

@@ -66,7 +66,7 @@ export const WindowBar = styled.div`
     width: 100%;
 `
 
-export const WindowName = styled.div`
+export const WindowName = styled.button`
     ${props=>props.current && `
         background-color: rgb(184, 122, 68);
     `}
@@ -83,4 +83,11 @@ export const WindowButtons = styled.div`
     position: absolute;
     top: 0px;
     right: 0px;
+`
+
+export const ActiveWindows = styled.div`
+    display: flex;
+    flex-flow: row wrap;
+    width: 90%;
+    overflow-x: auto;
 `
