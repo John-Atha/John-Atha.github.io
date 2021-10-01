@@ -1,23 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import Contents from './Contents';
-import { Window, WindowBar, WindowKind, WindowKindImg, WindowPill, NoBgButton, WindowButtons, ActiveWindows } from './styles';
+import { Window, WindowBar, WindowKind, WindowKindImg, WindowKindName, WindowPill, NoBgButton, WindowButtons, WindowButton, ActiveWindows } from './styles';
 import dir_icon from '../images/folder.png';
 import '../App.css';
 
 function DirectoryWindow(props) {
     const [dir, setDir] = useState(props.dir);
     const [fullScreen, setFullScreen] = useState(false);
+    const [zIndex, setZIndex] = useState(props.zIndex);
 
     useEffect(() => {
         setDir(props.dir);
     }, [props.dir])
 
+    useEffect(() => {
+        setZIndex(props.zIndex);
+    }, [props.zIndex])
+
+    const hide = () => {
+        props.setShowingNow('doc');
+        props.setShowingDirWindow(false);
+    }
+
+    const expand = () => {
+        props.setShowingNow('dir');
+        setFullScreen(!fullScreen);
+    }
+
     return (
-        <Window fullScreen={fullScreen}>
+        <Window fullScreen={fullScreen} zIndex={zIndex}>
             <WindowBar>
                 <WindowKind>
                     <WindowKindImg src={dir_icon} />
-                    <div>Directories manager</div>
+                    <WindowKindName>Directories manager</WindowKindName>
                 </WindowKind>
                 <ActiveWindows>
                     {props.openDirectories.map((value) => {
@@ -37,15 +52,15 @@ function DirectoryWindow(props) {
                     })}
                 </ActiveWindows>
                 <WindowButtons>
-                    <button onClick={()=>props.setShowingDirWindow(false)}>
+                    <WindowButton onClick={hide}>
                         &#10134;
-                    </button>
-                    <button onClick={()=>setFullScreen(!fullScreen)}>
+                    </WindowButton>
+                    <WindowButton onClick={expand}>
                         &#11035;
-                    </button>
-                    <button onClick={props.closeAllDirs} >
+                    </WindowButton>
+                    <WindowButton onClick={props.closeAllDirs} >
                         &#10060;
-                    </button>
+                    </WindowButton>
                 </WindowButtons>
             </WindowBar>
             <div style={{'marginTop': '60px'}} />

@@ -19,7 +19,7 @@ export const ContentsContainer = styled.div`
     flex-flow: row wrap;
 `
 
-export const Name = styled.h4`
+export const Name = styled.h6`
     text-align: center;
     color: white;
     margin: 2px;
@@ -33,8 +33,8 @@ export const Name = styled.h4`
     }
 `
 export const Img = styled.img`
-    width: 50px;
-    height: 60px;
+    width: 30px;
+    height: 40px;
 `
 
 export const Window = styled.div`
@@ -50,6 +50,9 @@ export const Window = styled.div`
         top: 10px;
         left: 10px;
     `}
+    ${props => `
+        z-index: ${props.zIndex};
+    `}
     overflow-y: auto;
     overflow-x: hidden;
     border: 1px solid grey;
@@ -58,7 +61,7 @@ export const Window = styled.div`
     background-color: rgb(48, 47, 46);
 `
 
-export const Error = styled.h4`
+export const Error = styled.h6`
     color: red;
     margin: 10px;
 `
@@ -69,7 +72,7 @@ export const WindowBar = styled.div`
     flex-flow: row wrap;
     position: absolute;
     top: 0px;
-    height: 50px;
+    height: 40px;
     width: 100%;
 `
 
@@ -86,6 +89,7 @@ export const WindowPill = styled.div`
     &:hover {
         background-color: white;
     }
+    font-size: 0.9rem;
 `
 
 export const NoBgButton = styled.button`
@@ -101,6 +105,10 @@ export const WindowButtons = styled.div`
     right: 0px;
 `
 
+export const WindowButton = styled.button`
+    font-size: 0.8rem;
+`
+
 export const ActiveWindows = styled.div`
     display: flex;
     width: 70%;
@@ -113,14 +121,37 @@ export const WindowKind = styled.div`
     background-color: inherit;
     color: white;
     margin: 3px;
-    width: 115px;
+    width: 90px;
     max-height: 100%;
     display: flex;
     border-right: 1px solid white;
+    font-size: 0.7rem;
 `
 
 export const WindowKindImg = styled.img`
     width: 20px;
     height: 30px;
     margin: 3px;
+`
+
+export const WindowKindName = styled.div`
+    height: min-content;
+`
+
+export const NavbarImg = styled.img`
+    width: 25px;
+    height: 30px;
+`
+
+export const NavBarEmoji = styled.div`
+    font-size: 1.3rem;
+`
+
+export const TabsCounterImg = styled.div`
+    font-size:0.5rem;
+`
+export const TabsCounterContainer = styled.div`
+    text-align: center;
+    justify-content: center;
+    display: flex;
 `

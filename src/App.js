@@ -4,18 +4,31 @@ import { data } from './data';
 import Contents from './Components/Contents';
 import DirectoryWindow from './Components/DirectoryWindow';
 import DocumentWindow from './Components/DocumentWindow';
+import MyNavbar from './Components/MyNavbar';
 
 function App() {
 
   const [showingDirWindow, setShowingDirWindow] = useState(false);
+  const [showingDocWindow, setShowingDocWindow] = useState(false);
+  const [showingNow, setShowingNow] = useState(null);
+
   const [currentDirectory, setCurrentDirectory] = useState(null);
   const [openDirectories, setOpenDirectories] = useState([]);
   const [lastDirAction, setLastDirAction] = useState(null);
 
-  const [showingDocWindow, setShowingDocWindow] = useState(false);
   const [currentDoc, setCurrentDoc] = useState(null);
   const [openDocs, setOpenDocs] = useState([]);
   const [lastDocAction, setLastDocAction] = useState(null);
+
+  const showDirWindow = () => {
+    setShowingDirWindow(true);
+    setShowingNow('dir');
+  }
+
+  const showDocWindow = () => {
+    setShowingDocWindow(true);
+    setShowingNow('doc');
+  }
 
   const addDir = (dir) => {
     setLastDirAction('addittion');
@@ -25,7 +38,7 @@ function App() {
     else {
       setOpenDirectories(openDirectories.concat(dir));
     }
-    if (!showingDirWindow) setShowingDirWindow(true);
+    showDirWindow();
   }
 
   const addDoc = (doc) => {
@@ -36,7 +49,7 @@ function App() {
     else {
       setOpenDocs(openDocs.concat(doc));
     }
-    if (!showingDocWindow) setShowingDocWindow(true);
+    showDocWindow();
   }
 
   const removeDir = (dir) => {
@@ -52,11 +65,13 @@ function App() {
   const closeAllDirs = () => {
     setOpenDirectories([]);
     setShowingDirWindow(false);
+    setShowingNow('doc');
   }
 
   const closeAllDocs = () => { 
     setOpenDocs([]);
     setShowingDocWindow(false);
+    setShowingNow('dir');
   }
 
   useEffect(() => {
@@ -92,6 +107,7 @@ function App() {
       setShowingDocWindow(false);
       setCurrentDoc(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openDocs])
 
   return (
@@ -106,8 +122,10 @@ function App() {
         addDoc={addDoc} />
       {showingDirWindow && currentDirectory &&
         <DirectoryWindow
+          zIndex={showingNow==='dir' ? 2 : 1}
           dir={currentDirectory}
           setShowingDirWindow={setShowingDirWindow}
+          setShowingNow={setShowingNow}
           addDir={addDir}
           removeDir={removeDir}
           openDirectories={openDirectories}
@@ -115,14 +133,26 @@ function App() {
           addDoc={addDoc} />
       }
       {showingDocWindow && currentDoc &&
-        <DocumentWindow 
+        <DocumentWindow
+          zIndex={showingNow==='doc' ? 2 : 1}
           doc={currentDoc}
           setShowingDocWindow={setShowingDocWindow}
+          setShowingNow={setShowingNow}
           addDoc={addDoc}
           removeDoc={removeDoc}
           openDocs={openDocs}
           closeAllDocs={closeAllDocs} />
       }
+      <MyNavbar
+        openDocs={openDocs}
+        openDirectories={openDirectories}
+        setShowingDocWindow={setShowingDocWindow}
+        setShowingDirWindow={setShowingDirWindow}
+        setShowingNow={setShowingNow}
+        showingDocWindow={showingDocWindow}
+        showingDirWindow={showingDirWindow}
+        showingNow={showingNow}
+      />
     </div>
   );
 }

@@ -26,3 +26,17 @@ button:hover {
 background-color: darkgrey;
 outline: 1px solid slategrey;
 }
+
+.nav-link {
+  text-align: center;
+  padding-top: 1px;
+}
+
+.nav-link:hover {
+  background-color: grey;
+}
+
+.navbar-collapse, .navbar-nav {
+  max-height: inherit;
+  padding-top: 2px;
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Window, WindowBar, WindowKind, WindowKindImg, WindowPill, NoBgButton, WindowButtons, ActiveWindows } from './styles';
+import { Window, WindowBar, WindowKind, WindowKindImg, WindowKindName, WindowPill, NoBgButton, WindowButtons, WindowButton, ActiveWindows } from './styles';
 import ReactMarkdown from 'react-markdown';
 import file_icon from '../images/file.png' ;
 import '../App.css';
@@ -9,10 +9,25 @@ function DocumentWindow(props) {
     const [doc, setDoc] = useState(props.doc);
     const [fullScreen, setFullScreen] = useState(false);
     const [text, setText] = useState("");
+    const [zIndex, setZIndex] = useState(props.zIndex);
 
     useEffect(() => {
         setDoc(props.doc);
     }, [props.doc])
+
+    useEffect(() => {
+        setZIndex(props.zIndex);
+    }, [props.zIndex])
+
+    const hide = () => {
+        props.setShowingNow('dir');
+        props.setShowingDocWindow(false);
+    }
+
+    const expand = () => {
+        props.setShowingNow('doc');
+        setFullScreen(!fullScreen);
+    }
 
     useEffect(() => {
         import (`../documents/${doc.type}${doc.id}.md`)
@@ -24,11 +39,11 @@ function DocumentWindow(props) {
     }, [doc])
 
     return (
-        <Window fullScreen={fullScreen}>
+        <Window fullScreen={fullScreen} zIndex={zIndex}>
             <WindowBar>
                 <WindowKind>
                     <WindowKindImg src={file_icon} />
-                    <div>Files manager</div>
+                    <WindowKindName>Files <div className='break' /> manager</WindowKindName>
                 </WindowKind>
                 <ActiveWindows>
                     {props.openDocs.map((value) => {
@@ -48,15 +63,15 @@ function DocumentWindow(props) {
                     })}
                 </ActiveWindows>
                 <WindowButtons>
-                    <button onClick={()=>props.setShowingDocWindow(false)}>
+                    <WindowButton onClick={hide}>
                         &#10134;
-                    </button>
-                    <button onClick={()=>setFullScreen(!fullScreen)}>
+                    </WindowButton>
+                    <WindowButton onClick={expand}>
                         &#11035;
-                    </button>
-                    <button onClick={props.closeAllDocs} >
+                    </WindowButton>
+                    <WindowButton onClick={props.closeAllDocs} >
                         &#10060;
-                    </button>
+                    </WindowButton>
                 </WindowButtons>
             </WindowBar>
             <div style={{'marginTop': '60px'}} />
