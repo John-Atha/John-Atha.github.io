@@ -20,7 +20,7 @@ function Contents(props) {
                                 dir={value}
                                 key={`${value.type}-${value.id}`}
                                 addDir={props.addDir}
-                                setShowingWindow={props.setShowingWindow}
+                                setShowingDirWindow={props.setShowingDirWindow}
                             />
                         )
                     }
@@ -29,6 +29,7 @@ function Contents(props) {
                             <File
                                 file={value}
                                 key={`${value.type}-${value.id}`}
+                                addDoc={props.addDoc}
                             />
                         )
                     }

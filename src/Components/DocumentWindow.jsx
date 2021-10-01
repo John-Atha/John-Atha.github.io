@@ -1,29 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import Contents from './Contents';
 import { Window, WindowBar, WindowPill, NoBgButton, WindowButtons, ActiveWindows } from './styles';
+import ReactMarkdown from 'react-markdown';
 import '../App.css';
 
-function DirectoryWindow(props) {
-    const [dir, setDir] = useState(props.dir);
+
+function DocumentWindow(props) {
+    const [doc, setDoc] = useState(props.doc);
     const [fullScreen, setFullScreen] = useState(false);
+    const [text, setText] = useState("");
 
     useEffect(() => {
-        setDir(props.dir);
-    }, [props.dir])
+        setDoc(props.doc);
+    }, [props.doc])
+
+    useEffect(() => {
+        import (`../documents/${doc.type}${doc.id}.md`)
+        .then(res => { 
+            fetch(res.default)
+            .then(res => { return res.text() })
+            .then(data => { setText(data)} )
+        })
+    }, [doc])
 
     return (
         <Window fullScreen={fullScreen}>
             <WindowBar>
                 <ActiveWindows>
-                    {props.openDirectories.map((value) => {
+                    {props.openDocs.map((value) => {
                         return(
                             <WindowPill
-                                current={value===dir}
+                                current={value===doc}
                                 key={`${value.type}-${value.id}`}>
-                                    <NoBgButton onClick={()=>props.addDir(value)}>
+                                    <NoBgButton onClick={()=>props.addDoc(value)}>
                                         {value.name}
                                     </NoBgButton>
-                                    <NoBgButton onClick={()=>props.removeDir(value)} >
+                                    <NoBgButton onClick={()=>props.removeDoc(value)} >
                                         &#10006;
                                     </NoBgButton>
 
@@ -32,28 +43,23 @@ function DirectoryWindow(props) {
                     })}
                 </ActiveWindows>
                 <WindowButtons>
-                    <button onClick={()=>props.setShowingDirWindow(false)}>
+                    <button onClick={()=>props.setShowingDocWindow(false)}>
                         &#10134;
                     </button>
                     <button onClick={()=>setFullScreen(!fullScreen)}>
                         &#11035;
                     </button>
-                    <button onClick={props.closeAllDirs} >
+                    <button onClick={props.closeAllDocs} >
                         &#10060;
                     </button>
                 </WindowButtons>
             </WindowBar>
             <div style={{'marginTop': '60px'}} />
-            <Contents
-                contents={dir.contents}
-                setShowingDirWindow={props.setShowingDirWindow}
-                addDir={props.addDir}
-                removeDir={props.removeDir}
-                openDirectories={props.openDirectories}
-                currentDirectory={props.currentDirectory}
-                addDoc={props.addDoc} />
+            <div style={{'color': 'white', 'padding': '0px 10px'}}>
+                <ReactMarkdown children={text} />
+            </div>
         </Window>
     )
 }
 
-export default DirectoryWindow;
+export default DocumentWindow;

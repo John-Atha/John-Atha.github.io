@@ -10,7 +10,7 @@ function File(props) {
     }, [props.file])
 
     return (
-        <Container>
+        <Container onDoubleClick={()=>props.addDoc(file)} >
             <Img src={file_icon}/>
             <Name>{file.name}</Name>
         </Container>
