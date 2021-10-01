@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Contents from './Contents';
-import { Window, WindowBar, WindowPill, NoBgButton, WindowButtons, ActiveWindows } from './styles';
+import { Window, WindowBar, WindowKind, WindowKindImg, WindowPill, NoBgButton, WindowButtons, ActiveWindows } from './styles';
+import dir_icon from '../images/folder.png';
 import '../App.css';
 
 function DirectoryWindow(props) {
@@ -14,6 +15,10 @@ function DirectoryWindow(props) {
     return (
         <Window fullScreen={fullScreen}>
             <WindowBar>
+                <WindowKind>
+                    <WindowKindImg src={dir_icon} />
+                    <div>Directories manager</div>
+                </WindowKind>
                 <ActiveWindows>
                     {props.openDirectories.map((value) => {
                         return(

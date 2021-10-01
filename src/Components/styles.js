@@ -83,6 +83,9 @@ export const WindowPill = styled.div`
     display: flex;
     border-right: 1px solid grey;
     padding: 3px;
+    &:hover {
+        background-color: white;
+    }
 `
 
 export const NoBgButton = styled.button`
@@ -100,8 +103,24 @@ export const WindowButtons = styled.div`
 
 export const ActiveWindows = styled.div`
     display: flex;
-    width: 85%;
+    width: 70%;
     overflow-x: auto;
     overflow-y: hidden;
     height: inherit;
+`
+
+export const WindowKind = styled.div`
+    background-color: inherit;
+    color: white;
+    margin: 3px;
+    width: 115px;
+    max-height: 100%;
+    display: flex;
+    border-right: 1px solid white;
+`
+
+export const WindowKindImg = styled.img`
+    width: 20px;
+    height: 30px;
+    margin: 3px;
 `

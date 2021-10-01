@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Window, WindowBar, WindowPill, NoBgButton, WindowButtons, ActiveWindows } from './styles';
+import { Window, WindowBar, WindowKind, WindowKindImg, WindowPill, NoBgButton, WindowButtons, ActiveWindows } from './styles';
 import ReactMarkdown from 'react-markdown';
+import file_icon from '../images/file.png' ;
 import '../App.css';
 
 
@@ -25,6 +26,10 @@ function DocumentWindow(props) {
     return (
         <Window fullScreen={fullScreen}>
             <WindowBar>
+                <WindowKind>
+                    <WindowKindImg src={file_icon} />
+                    <div>Files manager</div>
+                </WindowKind>
                 <ActiveWindows>
                     {props.openDocs.map((value) => {
                         return(
