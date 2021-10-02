@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { NavbarImg, TabsCounterImg, TabsCounterContainer, NavBarEmoji } from './styles';
 import dir_icon from '../images/folder.png';
 import file_icon from '../images/file.png';
+import '../App.css';
 
 function MyNavbar(props) {
     const [openDirectories, setOpenDirectories] = useState(props.openDirectories);
@@ -56,42 +57,86 @@ function MyNavbar(props) {
             }
         }
     }
-    
+
     return(
-        <Navbar variant='dark' expand="sm" fixed="bottom" style={{'padding': '0px 3px', 'height': '50px', 'background-color': 'rgb(48, 47, 46)'}}>
+        <Navbar variant='dark' expand="sm" fixed="bottom" style={{'padding': '0px 3px', 'height': '50px', 'backgroundColor': 'rgb(48, 47, 46)'}}>
             <Navbar.Brand href="#home">Th3_Order_Of_th3_pHOenix</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
                 {openDirectories.length!==0 &&
-                    <Nav.Link onClick={updateDirsVisibility} >
-                        <NavbarImg src={dir_icon} />
-                        <TabsCounterContainer>
-                            {openDirectories.map((value) => {
-                                return (
-                                    <TabsCounterImg key={value.id}>&#128310;</TabsCounterImg>
-                                )
-                            })}                    
-                        </TabsCounterContainer>
-                    </Nav.Link>
+                    <OverlayTrigger
+                        placement='top'
+                        overlay={
+                          <Tooltip>
+                            <b>Directories</b> manager
+                          </Tooltip>
+                        }
+                    >
+                        <Nav.Link onClick={updateDirsVisibility} tooltip='Directories manager'>
+                            <NavbarImg src={dir_icon} />
+                            <TabsCounterContainer>
+                                {openDirectories.map((value) => {
+                                    return (
+                                        <TabsCounterImg key={value.id}>&#128310;</TabsCounterImg>
+                                    )
+                                })}                    
+                            </TabsCounterContainer>
+                        </Nav.Link>
+                    </OverlayTrigger>
                 }
                 {openDocs.length!==0 &&
-                    <Nav.Link onClick={updateDocsVisibility}>
-                        <NavbarImg src={file_icon} />
-                        <TabsCounterContainer>
-                            {openDocs.map((value) => {
-                                return (
-                                    <TabsCounterImg key={value.id}>&#128310;</TabsCounterImg>
-                                )
-                            })}                    
-                        </TabsCounterContainer>
-                    </Nav.Link>
+                    <OverlayTrigger
+                        placement='top'
+                        overlay={
+                            <Tooltip>
+                                <b>Documents</b> manager
+                            </Tooltip>
+                        }
+                    >
+                        <Nav.Link onClick={updateDocsVisibility}>
+                            <NavbarImg src={file_icon} />
+                            <TabsCounterContainer>
+                                {openDocs.map((value) => {
+                                    return (
+                                        <TabsCounterImg key={value.id}>&#128310;</TabsCounterImg>
+                                    )
+                                })}                    
+                            </TabsCounterContainer>
+                        </Nav.Link>
+                    </OverlayTrigger>
                 }
-                <Nav.Link href="#home">
-                   <NavBarEmoji>&#127911;</NavBarEmoji>
+                <OverlayTrigger
+                    placement='top'
+                    overlay={
+                        <Tooltip>
+                            <b>Music</b> player
+                        </Tooltip>
+                    }
+                >
+                    <Nav.Link href="#">
+                        <NavBarEmoji>&#127911;</NavBarEmoji>
+                    </Nav.Link>
+                </OverlayTrigger>
+                <OverlayTrigger
+                    placement='top'
+                    overlay={
+                        <Tooltip>
+                            <b>Game</b> player
+                        </Tooltip>
+                    }
+                >
+                    <Nav.Link href="#">
+                        <NavBarEmoji>&#127923;</NavBarEmoji>
+                    </Nav.Link>
+                </OverlayTrigger>
+            </Nav>
+            <Nav>
+                <Nav.Link href="#">
+                    <NavBarEmoji>&#128266;</NavBarEmoji>
                 </Nav.Link>
-                <Nav.Link href="#link">
-                    <NavBarEmoji>&#127923;</NavBarEmoji>
+                <Nav.Link>
+                    {new Date().toString().slice(0, 21)}
                 </Nav.Link>
             </Nav>
             </Navbar.Collapse>
