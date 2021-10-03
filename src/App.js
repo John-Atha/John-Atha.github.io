@@ -23,6 +23,7 @@ function App() {
   const [lastDocAction, setLastDocAction] = useState(null);
 
   const [playing, setPlaying] = useState(false);
+  const [game, setGame] = useState(null);
 
   const [isDirFullScreen, setIsDirFullScreen] = useState(false);
   const [isDocFullScreen, setIsDocFullScreen] = useState(false);
@@ -97,6 +98,7 @@ function App() {
 
   const stopPlaying = () => {
     setPlaying(false);
+    setGame(null);
     setShowingGameWindow(false);
   }
 
@@ -188,6 +190,8 @@ function App() {
           setIsGameFullScreen={setIsGameFullScreen}
           setPlaying={setPlaying}
           stopPlaying={stopPlaying}
+          game={game}
+          setGame={setGame}
         />
       }
       <MyNavbar
@@ -206,6 +210,7 @@ function App() {
         currentDoc={currentDoc}
         playing={playing}
         setPlaying={setPlaying}
+        game={game}
       />
     </div>
   );

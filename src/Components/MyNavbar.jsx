@@ -3,6 +3,7 @@ import { Navbar, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { NavbarImg, TabsCounterImg, TabsCounterContainer, NavBarEmoji } from './styles';
 import PreviewDirectoryWindow from './PreviewDirectoryWindow';
 import PreviewDocumentWindow from './PreviewDocumentWindow';
+import PreviewGameWindow from './PreviewGameWindow';
 import dir_icon from '../images/folder.png';
 import file_icon from '../images/file.png';
 import '../App.css';
@@ -17,6 +18,10 @@ function MyNavbar(props) {
 
     const [currentDoc, setCurrentDoc] = useState(props.currentDoc);
     const [showingDocPreviewTab, setShowingDocPreviewTab] = useState(false);
+
+    const [playing, setPlaying] = useState(props.playing);
+    const [game, setGame] = useState(props.game);
+    const [showingGamePreviewTab, setShowingGamePreviewTab] = useState(false);
 
     useEffect(() => {
         setOpenDirectories(props.openDirectories);
@@ -33,6 +38,14 @@ function MyNavbar(props) {
     useEffect(() => {
         setCurrentDoc(props.currentDoc);
     }, [props.currentDoc])
+
+    useEffect(() => {
+        setPlaying(props.playing);
+    }, [props.playing])
+
+    useEffect(() => {
+        setGame(props.game);
+    }, [props.game])
 
     const updateDocsVisibility = () => {
         // if showing something
@@ -212,8 +225,17 @@ function MyNavbar(props) {
                 </OverlayTrigger>
 
 
-                <Nav.Link href="#" onClick={updatePlaying} >
+                <Nav.Link 
+                    onClick={updatePlaying}
+                    onMouseOver={()=>setShowingGamePreviewTab(true)}
+                    onMouseLeave={()=>setShowingGamePreviewTab(false)}
+                >
                     <NavBarEmoji>&#127923;</NavBarEmoji>
+                    {showingGamePreviewTab && props.playing &&
+                        <PreviewGameWindow
+                            game={game}
+                        />
+                    }
                     <TabsCounterContainer>
                         {props.playing && 
                             <TabsCounterImg>&#128310;</TabsCounterImg>

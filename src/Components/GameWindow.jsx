@@ -5,7 +5,7 @@ import {
     ActiveWindows, WindowPill, WindowButtons,
     WindowButton, NoBgButton, OneGame, GameIcon,
     GameContainer, TetrisStats, BoardsContainer,
-    Error, Success } from './styles';
+    Error, Success, GamesBody } from './styles';
 import { Button } from 'react-bootstrap';
 import Snake from 'snake-game-react';
 import Tetris from 'react-tetris';
@@ -16,7 +16,7 @@ import tetris_icon from '../images/tetris.png';
 import minesweeper_icon from '../images/minesweeper.png';
 
 function GameWindow(props) {
-    const [game, setGame] = useState(null);
+    const [game, setGame] = useState(props.game);
     const [fullScreen, setFullScreen] = useState(props.isGameFullScreen);
     const [zIndex, setZIndex] = useState(props.zIndex);
     const [minesweeperWon, setMinesweeperWon] = useState(false);
@@ -86,7 +86,7 @@ function GameWindow(props) {
                                 <NoBgButton>
                                     {game.name}
                                 </NoBgButton>
-                                <NoBgButton onClick={()=>setGame(null)}>
+                                <NoBgButton onClick={()=>{setGame(null);props.setGame(null)}}>
                                     &#10006;
                                 </NoBgButton>
                         </WindowPill>
@@ -112,28 +112,29 @@ function GameWindow(props) {
                 </WindowButtons>
             </WindowBar>                
             <div style={{'marginTop': '60px'}} />
-            {!game && 
-                <div style={{'color': 'white'}}>
-                    <h2>Games</h2>
-                    {games.map(value => {
-                        return(
-                            <OneGame key={value.name}>
-                                <div style={{'display': 'flex', 'flexFlow': 'row wrap'}}>
-                                    <div>
-                                        <h5>{value.name}</h5>
-                                        <hr/>
-                                        <div><i>{value.description}</i></div>
+            <GamesBody>
+                {!game && 
+                    <div style={{'color': 'white'}}>
+                        <h2>Games</h2>
+                        {games.map(value => {
+                            return(
+                                <OneGame key={value.name}>
+                                    <div style={{'display': 'flex', 'flexFlow': 'row wrap'}}>
+                                        <div>
+                                            <h5>{value.name}</h5>
+                                            <hr/>
+                                            <div><i>{value.description}</i></div>
+                                        </div>
+                                        <div>
+                                            <GameIcon src={value.image} alt={value.name} />
+                                        </div>
                                     </div>
-                                    <div>
-                                        <GameIcon src={value.image} alt={value.name} />
-                                    </div>
-                                </div>
-                                <Button variant='success' onClick={()=>setGame(value)}>Play</Button>
-                            </OneGame>
-                        )
-                    })}
-                </div>
-            }
+                                    <Button variant='success' onClick={()=>{setGame(value);props.setGame(value);props.setPlaying(true);}}>Play</Button>
+                                </OneGame>
+                            )
+                        })}
+                    </div>
+                }
                 {game && game.name==='snake' &&
                     <Snake 
                         color1="#248ec2"
@@ -181,6 +182,7 @@ function GameWindow(props) {
                         />
                     </div>
                 }
+            </GamesBody>
         </Window>
     )
 }

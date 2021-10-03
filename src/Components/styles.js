@@ -58,6 +58,9 @@ export const ContentsContainer = styled.div`
     padding: 10px;
     display: flex;
     flex-flow: row wrap;
+    overflow-y: auto;
+    max-height: 100%;
+    padding-bottom: 60px;
 `
 
 export const Name = styled.h6`
@@ -110,7 +113,7 @@ export const Window = styled.div`
         z-index: ${props.zIndex};
     `}
     position: absolute;
-    overflow-y: auto;
+    overflow-y: hidden;
     overflow-x: hidden;
     border: 1px solid grey;
     border-radius: 7px;
@@ -141,8 +144,15 @@ export const Error = styled.h6`
     color: red;
 `
 export const Success = styled.h6`
+    ${props => props.preview && `
+        font-size: 0.5rem;
+        margin: 20px 2px;
+        text-align: left;
+    `}
+    ${props => !props.preview && `
+        margin: 10px;
+    `}
     color: green;
-    margin: 10px;
 `
 
 
@@ -268,20 +278,42 @@ export const MarkdownContainer = styled.div`
     `}
     ${props => !props.preview && `
         margin-top: 60px;
+        overflow-y: auto;
+        height: 100%;
+        padding-bottom: 60px;
     `}
 `
 
 export const OneGame = styled.div`
-    border: 1px solid grey;
-    margin: 5px;
-    border-radius: 7px;
-    padding: 5px;
+    ${props => props.preview && `
+        margin: 1px;
+        padding: 1px;
+        font-size: 0.5rem;
+    `}
+    ${props => !props.preview && `
+        border: 1px solid grey;
+        margin: 5px;
+        border-radius: 7px;
+        padding: 5px;
+    `}
 `
 
 export const GameIcon = styled.img`
-    height: 100px;
-    width: auto;
-    margin: 10px;
+    ${props => props.preview && `
+        height: 30px;
+        width: auto;
+        margin: 5px;
+    `}
+    ${props => !props.preview && !props.sample && `
+        height: 100px;
+        width: auto;
+        margin: 10px;
+    `}
+    ${props => !props.preview && props.sample && `
+        height: 10px;
+        width: auto;
+        margin: 1px;
+    `}
 `
 
 export const GameContainer = styled.div`
@@ -309,4 +341,9 @@ export const BoardsContainer = styled.div`
     margin: auto;
 `
 
-
+export const GamesBody = styled.div`
+    overflow-y: auto;
+    color: white;
+    height: 100%;
+    padding-bottom: 60px;
+`
