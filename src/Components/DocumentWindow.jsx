@@ -24,12 +24,12 @@ function DocumentWindow(props) {
     }, [props.isDocFullScreen]);
 
     const hide = () => {
-        props.setShowingNow('dir');
+        props.removeFromShowingNow('doc');
         props.setShowingDocWindow(false);
     }
 
     const expand = () => {
-        props.setShowingNow('doc');
+        props.addToShowingNow('doc');
         const curr = fullScreen;
         setFullScreen(!curr);
         props.setIsDocFullScreen(!curr);

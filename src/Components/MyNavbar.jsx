@@ -35,57 +35,116 @@ function MyNavbar(props) {
     }, [props.currentDoc])
 
     const updateDocsVisibility = () => {
-        if (props.showingNow==='doc') {
-            if (props.showingDocWindow) {
-                props.setShowingDocWindow(false);
+        // if showing something
+        if (props.showingNow.length) {
+            const curr = props.showingNow[props.showingNow.length-1];
+            // if I have the priority, alternate my showing state
+            if (curr==='doc') {
+                if (props.showingDocWindow) {
+                    props.setShowingDocWindow(false);
+                    props.removeFromShowingNow('doc');
+                }
+                else {
+                    props.setShowingDocWindow(true);
+                }
             }
+            // if I do not have the priority
             else {
-                props.setShowingDocWindow(true);
+                // remove my priority and hide me if I was the only one showing
+                if (props.showingDocWindow  && !props.showingDirWindow && !props.showingGameWindow) {
+                    props.removeFromShowingNow('doc');
+                    props.setShowingDocWindow(false);
+                }
+                // give me the priority and show me if others are shown too
+                else {
+                    props.addToShowingNow('doc');
+                    props.setShowingDocWindow(true);
+                }
             }
         }
+        // else give me the priority and show me
         else {
-            if (!props.showingDocWindow) {
-                props.setShowingNow('doc');
-                props.setShowingDocWindow(true);    
-            }
-            else if (props.showingDirWindow) {
-                props.setShowingNow('doc');
-            }
-            else {
-                props.setShowingNow('dir');
-                props.setShowingDocWindow(false);    
-            }
+            props.addToShowingNow('doc');
+            props.setShowingDocWindow(true);
         }
     }
 
     const updateDirsVisibility = () => {
-        if (props.showingNow==='dir') {
-            if (props.showingDirWindow) {
-                props.setShowingDirWindow(false);
+        // if showing something
+        if (props.showingNow.length) {
+            const curr = props.showingNow[props.showingNow.length-1];
+            // if I have the priority, alternate my showing state
+            if (curr==='dir') {
+                if (props.showingDirWindow) {
+                    props.setShowingDirWindow(false);
+                    props.removeFromShowingNow('dir');
+                }
+                else {
+                    props.setShowingDirWindow(true);
+                }
             }
+            // if I do not have the priority
             else {
-                props.setShowingDirWindow(true);
+                // remove my priority and hide me if I was the only one showing
+                if (props.showingDirWindow && !props.showingDocWindow && !props.showingGameWindow) {
+                    props.removeFromShowingNow('dir');
+                    props.setShowingDirWindow(false);
+                }
+                // give me the priority and show me if others are shown too
+                else {
+                    props.addToShowingNow('dir');
+                    props.setShowingDirWindow(true);
+                }
             }
         }
+        // else give me the priority and show me
         else {
-            if (!props.showingDirWindow) {
-                props.setShowingNow('dir');
-                props.setShowingDirWindow(true);    
-            }
-            else if (props.showingDocWindow) {
-                props.setShowingNow('dir');
-            }
-            else {
-                props.setShowingDirWindow(false);
-            }
+            props.addToShowingNow('dir');
+            props.setShowingDirWindow(true);
         }
     }
 
     const updatePlaying = () => {
-        if (!props.showingGameWindow) {
-            props.setPlaying(true);
+        // activate me (priority + showing) if I was deactivated
+        if (!props.playing) {
+            props.addToShowingNow('game');
             props.setShowingGameWindow(true);
-            props.setShowingNow('game');
+            props.setPlaying(true);
+        }
+        // if I was already active
+        else {
+            // if showing something
+            if (props.showingNow.length) {
+                const curr = props.showingNow[props.showingNow.length-1];
+                // if I have the priority, alternate my showing state
+                if (curr==='game') {
+                    if (props.showingGameWindow) {
+                        props.setShowingGameWindow(false);
+                        props.removeFromShowingNow('game');
+                    }
+                    else {
+                        props.setShowingGameWindow(true);
+                    }
+                }
+                // if I do not have the priority
+                else {
+                    // remove my priority and hide me if I was the only one showing
+                    if (props.showingGameWindow && !props.showingDocWindow && !props.showingDirWindow) {
+                        props.removeFromShowingNow('game');
+                        props.setShowingGameWindow(false);
+                    }
+                    // give me the priority and show me if others are shown too
+                    else {
+                        props.addToShowingNow('game');
+                        props.setShowingGameWindow(true);
+                    }
+                }
+            }
+            // else give me the priority and show me
+            else {
+                props.addToShowingNow('game');
+                props.setShowingGameWindow(true);
+            }
         }
     }
 

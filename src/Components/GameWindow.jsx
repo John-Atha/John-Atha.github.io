@@ -35,12 +35,12 @@ function GameWindow(props) {
     }, [props.isGameFullScreen])
 
     const hide = () => {
-        //props.setShowingNow('doc');
+        props.removeFromShowingNow('game');
         props.setShowingGameWindow(false);
     }
 
     const expand = () => {
-        props.setShowingNow('game');
+        props.addToShowingNow('game');
         const curr = fullScreen;
         setFullScreen(!curr);
         props.setIsGameFullScreen(!curr)

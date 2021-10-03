@@ -22,12 +22,12 @@ function DirectoryWindow(props) {
     }, [props.isDirFullScreen])
 
     const hide = () => {
-        props.setShowingNow('doc');
+        props.removeFromShowingNow('dir');
         props.setShowingDirWindow(false);
     }
 
     const expand = () => {
-        props.setShowingNow('dir');
+        props.addToShowingNow('dir');
         const curr = fullScreen;
         setFullScreen(!curr);
         props.setIsDirFullScreen(!curr)

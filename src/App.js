@@ -12,7 +12,7 @@ function App() {
   const [showingDirWindow, setShowingDirWindow] = useState(false);
   const [showingDocWindow, setShowingDocWindow] = useState(false);
   const [showingGameWindow, setShowingGameWindow] = useState(false);
-  const [showingNow, setShowingNow] = useState(null);
+  const [showingNow, setShowingNow] = useState([]);
 
   const [currentDirectory, setCurrentDirectory] = useState(null);
   const [openDirectories, setOpenDirectories] = useState([]);
@@ -28,19 +28,25 @@ function App() {
   const [isDocFullScreen, setIsDocFullScreen] = useState(false);
   const [isGameFullScreen, setIsGameFullScreen] = useState(false);
 
+  const addToShowingNow = (str) => {
+    // add 'dir' to the stack
+    const stack = showingNow.filter(value => { return value!==str });
+    stack.push(str);
+    setShowingNow(stack);
+  }
+
+  const removeFromShowingNow = (str) => {
+    setShowingNow(showingNow.filter(value => { return value!==str }));
+  }
+
   const showDirWindow = () => {
+    addToShowingNow('dir');
     setShowingDirWindow(true);
-    setShowingNow('dir');
   }
 
   const showDocWindow = () => {
+    addToShowingNow('doc');
     setShowingDocWindow(true);
-    setShowingNow('doc');
-  }
-
-  const showGameWindow = () => {
-    setShowingGameWindow(true);
-    setShowingNow('game');
   }
 
   const addDir = (dir) => {
@@ -78,15 +84,15 @@ function App() {
   const closeAllDirs = () => {
     setOpenDirectories([]);
     setShowingDirWindow(false);
-    setShowingNow('doc');
     setIsDirFullScreen(false);
+    removeFromShowingNow('dir');
   }
 
   const closeAllDocs = () => { 
     setOpenDocs([]);
     setShowingDocWindow(false);
-    setShowingNow('dir');
     setIsDocFullScreen(false);
+    removeFromShowingNow('doc');
   }
 
   const stopPlaying = () => {
@@ -143,10 +149,11 @@ function App() {
       />
       {showingDirWindow && currentDirectory &&
         <DirectoryWindow
-          zIndex={showingNow==='dir' ? 2 : 1}
+          zIndex={showingNow.length ? (showingNow[showingNow.length-1]==='dir' ? 2 : 1) : 1}
           dir={currentDirectory}
           setShowingDirWindow={setShowingDirWindow}
-          setShowingNow={setShowingNow}
+          addToShowingNow={addToShowingNow}
+          removeFromShowingNow={removeFromShowingNow}
           addDir={addDir}
           removeDir={removeDir}
           openDirectories={openDirectories}
@@ -158,10 +165,11 @@ function App() {
       }
       {showingDocWindow && currentDoc &&
         <DocumentWindow
-          zIndex={showingNow==='doc' ? 2 : 1}
+          zIndex={showingNow.length ? (showingNow[showingNow.length-1]==='doc' ? 2 : 1) : 1}
           doc={currentDoc}
           setShowingDocWindow={setShowingDocWindow}
-          setShowingNow={setShowingNow}
+          addToShowingNow={addToShowingNow}
+          removeFromShowingNow={removeFromShowingNow}
           addDoc={addDoc}
           removeDoc={removeDoc}
           openDocs={openDocs}
@@ -172,10 +180,12 @@ function App() {
       }
       {showingGameWindow && playing &&
         <GameWindow
-          zIndex={showingNow==='game' ? 2 : 1}
+          zIndex={showingNow.length ? (showingNow[showingNow.length-1]==='game' ? 2 : 1) : 1}
           setShowingGameWindow={setShowingGameWindow}
-          setShowingNow={setShowingNow}
+          addToShowingNow={addToShowingNow}
+          removeFromShowingNow={removeFromShowingNow}
           isGameFullScreen={isGameFullScreen}
+          setIsGameFullScreen={setIsGameFullScreen}
           setPlaying={setPlaying}
           stopPlaying={stopPlaying}
         />
@@ -186,11 +196,12 @@ function App() {
         setShowingDocWindow={setShowingDocWindow}
         setShowingDirWindow={setShowingDirWindow}
         setShowingGameWindow={setShowingGameWindow}
-        setShowingNow={setShowingNow}
+        addToShowingNow={addToShowingNow}
+        removeFromShowingNow={removeFromShowingNow}
+        showingNow={showingNow}
         showingDocWindow={showingDocWindow}
         showingDirWindow={showingDirWindow}
         showingGameWindow={showingGameWindow}
-        showingNow={showingNow}
         currentDirectory={currentDirectory}
         currentDoc={currentDoc}
         playing={playing}
