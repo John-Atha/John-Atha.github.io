@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
-import { Window, WindowBar, WindowKind, WindowKindName, ActiveWindows, WindowPill, WindowButtons, WindowButton, NoBgButton, OneGame, GameIcon, GameContainer, TetrisStats, BoardsContainer } from './styles';
+import {
+    Window, WindowBar, WindowKind, WindowKindName,
+    ActiveWindows, WindowPill, WindowButtons,
+    WindowButton, NoBgButton, OneGame, GameIcon,
+    GameContainer, TetrisStats, BoardsContainer,
+    Error, Success } from './styles';
 import { Button } from 'react-bootstrap';
 import Snake from 'snake-game-react';
 import Tetris from 'react-tetris';
+import Minesweeper from 'react-minesweeper';
+import "react-minesweeper/lib/minesweeper.css";
 import snake_icon from '../images/snake.png';
 import tetris_icon from '../images/tetris.png';
-
+import minesweeper_icon from '../images/minesweeper.png';
 
 function GameWindow(props) {
     const [game, setGame] = useState(null);
     const [fullScreen, setFullScreen] = useState(props.isGameFullScreen);
     const [zIndex, setZIndex] = useState(props.zIndex);
+    const [minesweeperWon, setMinesweeperWon] = useState(false);
+    const [minesweeperLost, setMinesweeperLost] = useState(false);
 
     const games = [
         {
@@ -23,7 +32,12 @@ function GameWindow(props) {
             name: 'tetris',
             description: 'The classic tetris game.',
             image: tetris_icon,
-        }
+        },
+        {
+            name: 'minesweeper',
+            description: 'The classic minesweeper game.',
+            image: minesweeper_icon,
+        },
     ]
 
     useEffect(() => {
@@ -44,6 +58,17 @@ function GameWindow(props) {
         const curr = fullScreen;
         setFullScreen(!curr);
         props.setIsGameFullScreen(!curr)
+    }
+
+    const restartGame = (game_name) => {
+        if (game_name==='minesweeper') {
+            setMinesweeperWon(false);
+            setMinesweeperLost(null);    
+        }
+        const new_game = games.filter(value => {return value.name===game_name});
+        const another_game = games.filter(value => {return value.name!==game_name});
+        setGame(another_game[0]);
+        setTimeout(() => {setGame(new_game[0]);}, 500);
     }
 
     return (
@@ -133,6 +158,28 @@ function GameWindow(props) {
                         );
                         }}
                     </Tetris>
+                }
+                {game && game.name==='minesweeper' &&
+                    <div>
+                        <div style={{'display': 'flex', 'flexFlow': 'row wrap', 'marginBottom': '10px'}}>
+                            {minesweeperWon &&
+                                <Success>Congratulations, you won!!</Success>
+                            }
+                            {minesweeperLost &&
+                                <Error>Sorry, you lost...</Error>
+                            }
+                            {(minesweeperWon || minesweeperLost) &&
+                                <Button style={{'margin': 0}} variant='primary'onClick={()=>restartGame('minesweeper')} >Play again</Button>
+                            }
+                        </div>
+                        <Minesweeper
+                            onWin={() => setMinesweeperWon(true)}
+                            onLose={() => setMinesweeperLost(true)}
+                            bombChance={0.15}
+                            width={10}
+                            height={10}
+                        />
+                    </div>
                 }
         </Window>
     )

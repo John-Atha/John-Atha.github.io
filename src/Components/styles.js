@@ -140,6 +140,11 @@ export const Error = styled.h6`
     `}
     color: red;
 `
+export const Success = styled.h6`
+    color: green;
+    margin: 10px;
+`
+
 
 export const WindowBar = styled.div`
     display: flex;
@@ -303,4 +308,5 @@ export const BoardsContainer = styled.div`
     flex-flow: row wrap;
     margin: auto;
 `
+
 
