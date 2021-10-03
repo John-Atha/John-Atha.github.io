@@ -82,7 +82,7 @@ function MyNavbar(props) {
     }
 
     const updatePlaying = () => {
-        if (!props.playing) {
+        if (!props.showingGameWindow) {
             props.setPlaying(true);
             props.setShowingGameWindow(true);
             props.setShowingNow('game');

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
-import { Window, WindowBar, WindowKind, WindowKindName, WindowPill, WindowButtons, WindowButton, NoBgButton, OneGame, GameIcon } from './styles';
+import { Window, WindowBar, WindowKind, WindowKindName, ActiveWindows, WindowPill, WindowButtons, WindowButton, NoBgButton, OneGame, GameIcon, GameContainer, TetrisStats, BoardsContainer } from './styles';
 import { Button } from 'react-bootstrap';
+import Snake from 'snake-game-react';
+import Tetris from 'react-tetris';
 import snake_icon from '../images/snake.png';
 import tetris_icon from '../images/tetris.png';
 
@@ -52,16 +54,18 @@ function GameWindow(props) {
                     <WindowKindName>Game player</WindowKindName>
                 </WindowKind>
                 {game &&
-                    <WindowPill
-                        current={true}
-                        key={`${game.name}`}>
-                            <NoBgButton>
-                                {game.name}
-                            </NoBgButton>
-                            <NoBgButton onClick={()=>setGame(null)}>
-                                &#10006;
-                            </NoBgButton>
-                    </WindowPill>
+                    <ActiveWindows>
+                        <WindowPill
+                            current={true}
+                            key={`${game.name}`}>
+                                <NoBgButton>
+                                    {game.name}
+                                </NoBgButton>
+                                <NoBgButton onClick={()=>setGame(null)}>
+                                    &#10006;
+                                </NoBgButton>
+                        </WindowPill>
+                    </ActiveWindows>
                 }
                 <WindowButtons>
                     <WindowButton onClick={hide}>
@@ -105,6 +109,31 @@ function GameWindow(props) {
                     })}
                 </div>
             }
+                {game && game.name==='snake' &&
+                    <Snake 
+                        color1="#248ec2"
+                        color2="#1d355e"
+                        backgroundColor="#ebebeb"
+                    />              
+                }
+                {game && game.name==='tetris' &&
+                    <Tetris>
+                        {({ Gameboard, PieceQueue, points, linesCleared }) => {
+                        return (
+                            <GameContainer>
+                                <TetrisStats>
+                                    <div style={{'margin': '5px'}}>Points: {points}</div>
+                                    <div style={{'margin': '5px'}}>Lines Cleared: {linesCleared}</div>
+                                </TetrisStats>
+                                <BoardsContainer>
+                                    <Gameboard />
+                                    <PieceQueue />
+                                </BoardsContainer>
+                            </GameContainer>
+                        );
+                        }}
+                    </Tetris>
+                }
         </Window>
     )
 }

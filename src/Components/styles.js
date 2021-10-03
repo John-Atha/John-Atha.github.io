@@ -177,6 +177,7 @@ export const WindowPill = styled.div`
 export const NoBgButton = styled.button`
     background-color: inherit;
     border: none;
+    margin: auto;
 `
 
 export const WindowButtons = styled.div`
@@ -185,10 +186,12 @@ export const WindowButtons = styled.div`
     position: absolute;
     top: 0px;
     right: 0px;
+    height: inherit;
 `
 
 export const WindowButton = styled.button`
     font-size: 0.8rem;
+    margin: auto;
 `
 
 export const ActiveWindows = styled.div`
@@ -275,3 +278,29 @@ export const GameIcon = styled.img`
     width: auto;
     margin: 10px;
 `
+
+export const GameContainer = styled.div`
+    max-height: 100%;
+    max-width: 100%;
+    padding: 2px;
+    color: white;
+    text-align: center;
+    align-items: center;
+    margin-top: 10px;
+`
+
+export const TetrisStats = styled.div`
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    border: 1px solid grey;
+    padding: 2px;
+    width: 300px;
+    margin: auto;
+`
+export const BoardsContainer = styled.div`
+    display: flex;
+    flex-flow: row wrap;
+    margin: auto;
+`
+
