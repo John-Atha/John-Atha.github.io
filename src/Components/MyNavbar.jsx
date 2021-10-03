@@ -6,6 +6,8 @@ import PreviewDocumentWindow from './PreviewDocumentWindow';
 import PreviewGameWindow from './PreviewGameWindow';
 import dir_icon from '../images/folder.png';
 import file_icon from '../images/file.png';
+import cmd_icon from '../images/cmd.png';
+import pao_icon from '../images/pao.png';
 import '../App.css';
 
 function MyNavbar(props) {
@@ -163,7 +165,9 @@ function MyNavbar(props) {
 
     return(
         <Navbar variant='dark' expand="sm" fixed="bottom" style={{'padding': '0px 3px', 'height': '50px', 'backgroundColor': 'rgb(48, 47, 46)'}}>
-            <Navbar.Brand href="#home">Th3_Order_Of_th3_pHOenix</Navbar.Brand>
+            <Navbar.Brand href="#home">
+                <NavbarImg case='pao' src={pao_icon} />
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -221,6 +225,19 @@ function MyNavbar(props) {
                 >
                     <Nav.Link href="#">
                         <NavBarEmoji>&#127911;</NavBarEmoji>
+                    </Nav.Link>
+                </OverlayTrigger>
+
+                <OverlayTrigger
+                    placement='top'
+                    overlay={
+                        <Tooltip>
+                            <b>Terminal</b>
+                        </Tooltip>
+                    }
+                >
+                    <Nav.Link href="#">
+                        <NavbarImg case={'terminal'} src={cmd_icon} />
                     </Nav.Link>
                 </OverlayTrigger>
 

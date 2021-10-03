@@ -248,8 +248,19 @@ export const WindowKindName = styled.div`
 `
 
 export const NavbarImg = styled.img`
-    width: 25px;
-    height: 30px;
+    ${props => props.case!=='terminal' && props.case!=='pao' && `
+        width: 25px;
+        height: 30px;
+    `}
+    ${props => props.case==='terminal' && `
+        width: 35px;
+        height: 30px;
+        border-radius: 5px;
+    `}
+    ${props => props.case==='pao' && `
+        width: 50px;
+        height: 45px;
+    `}
 `
 
 export const NavBarEmoji = styled.div`
@@ -279,7 +290,7 @@ export const MarkdownContainer = styled.div`
     ${props => !props.preview && `
         margin-top: 60px;
         overflow-y: auto;
-        height: 100%;
+        max-height: 100%;
         padding-bottom: 60px;
     `}
 `
@@ -344,6 +355,6 @@ export const BoardsContainer = styled.div`
 export const GamesBody = styled.div`
     overflow-y: auto;
     color: white;
-    height: 100%;
-    padding-bottom: 60px;
+    max-height: 100%;
+    padding-bottom: 100px;
 `
