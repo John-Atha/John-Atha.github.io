@@ -1,4 +1,38 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
+export const ShowFullScreen = keyframes`
+    0% {
+        position: absolute;
+        top: 500px;
+        left: 0px;
+        width: 0vw;
+        height: 0vh;
+    }
+    100% {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 92%;
+    }
+`
+
+export const ShowNoFullScreen = keyframes`
+    0% {
+        position: absolute;
+        top: 500px;
+        left: 0px;
+        width: 0vw;
+        height: 0vh;
+    }
+    100% {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 90vw;
+        height: 90vh;
+    }
+`
 
 export const Container = styled.div`
     margin: 10px;
@@ -38,17 +72,21 @@ export const Img = styled.img`
 `
 
 export const Window = styled.div`
-    ${props => props.fullScreen && `
+    ${props => props.fullScreen && css`
         width: 99%;
         height: 99%;
-        top: 0px;
-        left: 0px;
+        animation-name: ${ShowFullScreen};
+        animation-fill-mode: forwards;
+        animation-duration: 0.5s;
+        animation-delay: 0s;
     `}
-    ${props => !props.fullScreen && `
+    ${props => !props.fullScreen && css`
         width: 90vw;
         height: 90vh;
-        top: 10px;
-        left: 10px;
+        animation-name: ${ShowNoFullScreen};
+        animation-fill-mode: forwards;
+        animation-duration: 0.1s;
+        animation-delay: 0s;
     `}
     ${props => `
         z-index: ${props.zIndex};
@@ -57,7 +95,6 @@ export const Window = styled.div`
     overflow-x: hidden;
     border: 1px solid grey;
     border-radius: 7px;
-    position: absolute;
     background-color: rgb(48, 47, 46);
 `
 

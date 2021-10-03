@@ -7,7 +7,7 @@ import '../App.css';
 
 function DocumentWindow(props) {
     const [doc, setDoc] = useState(props.doc);
-    const [fullScreen, setFullScreen] = useState(false);
+    const [fullScreen, setFullScreen] = useState(props.isDocFullScreen);
     const [text, setText] = useState("");
     const [zIndex, setZIndex] = useState(props.zIndex);
 
@@ -19,6 +19,10 @@ function DocumentWindow(props) {
         setZIndex(props.zIndex);
     }, [props.zIndex])
 
+    useEffect(() => {
+        setFullScreen(props.isDocFullScreen);
+    }, [props.isDocFullScreen]);
+
     const hide = () => {
         props.setShowingNow('dir');
         props.setShowingDocWindow(false);
@@ -26,7 +30,9 @@ function DocumentWindow(props) {
 
     const expand = () => {
         props.setShowingNow('doc');
-        setFullScreen(!fullScreen);
+        const curr = fullScreen;
+        setFullScreen(!curr);
+        props.setIsDocFullScreen(!curr);
     }
 
     useEffect(() => {
@@ -66,9 +72,16 @@ function DocumentWindow(props) {
                     <WindowButton onClick={hide}>
                         &#10134;
                     </WindowButton>
-                    <WindowButton onClick={expand}>
-                        &#11035;
-                    </WindowButton>
+                    {fullScreen &&
+                        <WindowButton onClick={expand}>
+                            ☐
+                        </WindowButton>
+                    }
+                    {!fullScreen &&
+                        <WindowButton onClick={expand}>
+                            &#11035;
+                        </WindowButton>
+                    }
                     <WindowButton onClick={props.closeAllDocs} >
                         &#10060;
                     </WindowButton>

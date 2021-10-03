@@ -6,7 +6,7 @@ import '../App.css';
 
 function DirectoryWindow(props) {
     const [dir, setDir] = useState(props.dir);
-    const [fullScreen, setFullScreen] = useState(false);
+    const [fullScreen, setFullScreen] = useState(props.isDirFullScreen);
     const [zIndex, setZIndex] = useState(props.zIndex);
 
     useEffect(() => {
@@ -17,6 +17,10 @@ function DirectoryWindow(props) {
         setZIndex(props.zIndex);
     }, [props.zIndex])
 
+    useEffect(() => {
+        setFullScreen(props.isDirFullScreen);
+    }, [props.isDirFullScreen])
+
     const hide = () => {
         props.setShowingNow('doc');
         props.setShowingDirWindow(false);
@@ -24,7 +28,9 @@ function DirectoryWindow(props) {
 
     const expand = () => {
         props.setShowingNow('dir');
-        setFullScreen(!fullScreen);
+        const curr = fullScreen;
+        setFullScreen(!curr);
+        props.setIsDirFullScreen(!curr)
     }
 
     return (
@@ -55,9 +61,16 @@ function DirectoryWindow(props) {
                     <WindowButton onClick={hide}>
                         &#10134;
                     </WindowButton>
-                    <WindowButton onClick={expand}>
-                        &#11035;
-                    </WindowButton>
+                    {fullScreen &&
+                        <WindowButton onClick={expand}>
+                            ☐
+                        </WindowButton>
+                    }
+                    {!fullScreen &&
+                        <WindowButton onClick={expand}>
+                            &#11035;
+                        </WindowButton>
+                    }
                     <WindowButton onClick={props.closeAllDirs} >
                         &#10060;
                     </WindowButton>

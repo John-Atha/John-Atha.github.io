@@ -20,6 +20,9 @@ function App() {
   const [openDocs, setOpenDocs] = useState([]);
   const [lastDocAction, setLastDocAction] = useState(null);
 
+  const [isDirFullScreen, setIsDirFullScreen] = useState(false);
+  const [isDocFullScreen, setIsDocFullScreen] = useState(false);
+
   const showDirWindow = () => {
     setShowingDirWindow(true);
     setShowingNow('dir');
@@ -66,12 +69,14 @@ function App() {
     setOpenDirectories([]);
     setShowingDirWindow(false);
     setShowingNow('doc');
+    setIsDirFullScreen(false);
   }
 
   const closeAllDocs = () => { 
     setOpenDocs([]);
     setShowingDocWindow(false);
     setShowingNow('dir');
+    setIsDocFullScreen(false);
   }
 
   useEffect(() => {
@@ -130,7 +135,9 @@ function App() {
           removeDir={removeDir}
           openDirectories={openDirectories}
           closeAllDirs={closeAllDirs}
-          addDoc={addDoc} />
+          addDoc={addDoc}
+          isDirFullScreen={isDirFullScreen}
+          setIsDirFullScreen={setIsDirFullScreen} />
       }
       {showingDocWindow && currentDoc &&
         <DocumentWindow
@@ -141,7 +148,9 @@ function App() {
           addDoc={addDoc}
           removeDoc={removeDoc}
           openDocs={openDocs}
-          closeAllDocs={closeAllDocs} />
+          closeAllDocs={closeAllDocs}
+          isDocFullScreen={isDocFullScreen}
+          setIsDocFullScreen={setIsDocFullScreen} />
       }
       <MyNavbar
         openDocs={openDocs}
