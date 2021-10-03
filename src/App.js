@@ -4,12 +4,14 @@ import { data } from './data';
 import Contents from './Components/Contents';
 import DirectoryWindow from './Components/DirectoryWindow';
 import DocumentWindow from './Components/DocumentWindow';
+import GameWindow from './Components/GameWindow';
 import MyNavbar from './Components/MyNavbar';
 
 function App() {
 
   const [showingDirWindow, setShowingDirWindow] = useState(false);
   const [showingDocWindow, setShowingDocWindow] = useState(false);
+  const [showingGameWindow, setShowingGameWindow] = useState(false);
   const [showingNow, setShowingNow] = useState(null);
 
   const [currentDirectory, setCurrentDirectory] = useState(null);
@@ -20,8 +22,11 @@ function App() {
   const [openDocs, setOpenDocs] = useState([]);
   const [lastDocAction, setLastDocAction] = useState(null);
 
+  const [playing, setPlaying] = useState(false);
+
   const [isDirFullScreen, setIsDirFullScreen] = useState(false);
   const [isDocFullScreen, setIsDocFullScreen] = useState(false);
+  const [isGameFullScreen, setIsGameFullScreen] = useState(false);
 
   const showDirWindow = () => {
     setShowingDirWindow(true);
@@ -31,6 +36,11 @@ function App() {
   const showDocWindow = () => {
     setShowingDocWindow(true);
     setShowingNow('doc');
+  }
+
+  const showGameWindow = () => {
+    setShowingGameWindow(true);
+    setShowingNow('game');
   }
 
   const addDir = (dir) => {
@@ -79,6 +89,11 @@ function App() {
     setIsDocFullScreen(false);
   }
 
+  const stopPlaying = () => {
+    setPlaying(false);
+    setShowingGameWindow(false);
+  }
+
   useEffect(() => {
     if (openDirectories.length) {
       // I add a new dir, so I set this one as current...
@@ -124,7 +139,8 @@ function App() {
         removeDir={removeDir}
         openDirectories={openDirectories}
         currentDirectory={currentDirectory}
-        addDoc={addDoc} />
+        addDoc={addDoc}
+      />
       {showingDirWindow && currentDirectory &&
         <DirectoryWindow
           zIndex={showingNow==='dir' ? 2 : 1}
@@ -137,7 +153,8 @@ function App() {
           closeAllDirs={closeAllDirs}
           addDoc={addDoc}
           isDirFullScreen={isDirFullScreen}
-          setIsDirFullScreen={setIsDirFullScreen} />
+          setIsDirFullScreen={setIsDirFullScreen}
+        />
       }
       {showingDocWindow && currentDoc &&
         <DocumentWindow
@@ -150,19 +167,34 @@ function App() {
           openDocs={openDocs}
           closeAllDocs={closeAllDocs}
           isDocFullScreen={isDocFullScreen}
-          setIsDocFullScreen={setIsDocFullScreen} />
+          setIsDocFullScreen={setIsDocFullScreen}
+        />
+      }
+      {showingGameWindow && playing &&
+        <GameWindow
+          zIndex={showingNow==='game' ? 2 : 1}
+          setShowingGameWindow={setShowingGameWindow}
+          setShowingNow={setShowingNow}
+          isGameFullScreen={isGameFullScreen}
+          setPlaying={setPlaying}
+          stopPlaying={stopPlaying}
+        />
       }
       <MyNavbar
         openDocs={openDocs}
         openDirectories={openDirectories}
         setShowingDocWindow={setShowingDocWindow}
         setShowingDirWindow={setShowingDirWindow}
+        setShowingGameWindow={setShowingGameWindow}
         setShowingNow={setShowingNow}
         showingDocWindow={showingDocWindow}
         showingDirWindow={showingDirWindow}
+        showingGameWindow={showingGameWindow}
         showingNow={showingNow}
         currentDirectory={currentDirectory}
         currentDoc={currentDoc}
+        playing={playing}
+        setPlaying={setPlaying}
       />
     </div>
   );

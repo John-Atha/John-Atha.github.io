@@ -109,6 +109,7 @@ export const Window = styled.div`
     ${props => `
         z-index: ${props.zIndex};
     `}
+    position: absolute;
     overflow-y: auto;
     overflow-x: hidden;
     border: 1px solid grey;
@@ -260,4 +261,17 @@ export const MarkdownContainer = styled.div`
     ${props => !props.preview && `
         margin-top: 60px;
     `}
+`
+
+export const OneGame = styled.div`
+    border: 1px solid grey;
+    margin: 5px;
+    border-radius: 7px;
+    padding: 5px;
+`
+
+export const GameIcon = styled.img`
+    height: 100px;
+    width: auto;
+    margin: 10px;
 `

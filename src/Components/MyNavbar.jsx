@@ -12,10 +12,11 @@ function MyNavbar(props) {
     const [openDocs, setOpenDocs] = useState(props.openDocs);
     
     const [currentDirectory, setCurrentDirectory] = useState(props.currentDirectory);
-    const [showingDirPreview, setShowingDirPreview] = useState(false);
+    const [showingDirPreviewTab, setShowingDirPreviewTab] = useState(false);
+
 
     const [currentDoc, setCurrentDoc] = useState(props.currentDoc);
-    const [showingDocPreview, setShowingDocPreview] = useState(false);
+    const [showingDocPreviewTab, setShowingDocPreviewTab] = useState(false);
 
     useEffect(() => {
         setOpenDirectories(props.openDirectories);
@@ -47,6 +48,9 @@ function MyNavbar(props) {
                 props.setShowingNow('doc');
                 props.setShowingDocWindow(true);    
             }
+            else if (props.showingDirWindow) {
+                props.setShowingNow('doc');
+            }
             else {
                 props.setShowingNow('dir');
                 props.setShowingDocWindow(false);    
@@ -68,9 +72,20 @@ function MyNavbar(props) {
                 props.setShowingNow('dir');
                 props.setShowingDirWindow(true);    
             }
+            else if (props.showingDocWindow) {
+                props.setShowingNow('dir');
+            }
             else {
                 props.setShowingDirWindow(false);
             }
+        }
+    }
+
+    const updatePlaying = () => {
+        if (!props.playing) {
+            props.setPlaying(true);
+            props.setShowingGameWindow(true);
+            props.setShowingNow('game');
         }
     }
 
@@ -83,10 +98,10 @@ function MyNavbar(props) {
                 {openDirectories.length!==0 &&
                     <Nav.Link 
                         onClick={updateDirsVisibility}
-                        onMouseOver={()=>setShowingDirPreview(true)}
-                        onMouseLeave={()=>setShowingDirPreview(false)}
+                        onMouseOver={()=>setShowingDirPreviewTab(true)}
+                        onMouseLeave={()=>setShowingDirPreviewTab(false)}
                     >
-                        {showingDirPreview &&
+                        {showingDirPreviewTab &&
                             <PreviewDirectoryWindow
                                 openDirectories={openDirectories}
                                 dir={currentDirectory}
@@ -105,10 +120,10 @@ function MyNavbar(props) {
                 {openDocs.length!==0 &&
                     <Nav.Link
                         onClick={updateDocsVisibility}
-                        onMouseOver={()=>setShowingDocPreview(true)}
-                        onMouseLeave={()=>setShowingDocPreview(false)}
+                        onMouseOver={()=>setShowingDocPreviewTab(true)}
+                        onMouseLeave={()=>setShowingDocPreviewTab(false)}
                     >
-                        {showingDocPreview && 
+                        {showingDocPreviewTab && 
                             <PreviewDocumentWindow
                                 doc={currentDoc}
                             />
@@ -123,6 +138,7 @@ function MyNavbar(props) {
                         </TabsCounterContainer>
                     </Nav.Link>
                 }
+                
                 <OverlayTrigger
                     placement='top'
                     overlay={
@@ -135,18 +151,18 @@ function MyNavbar(props) {
                         <NavBarEmoji>&#127911;</NavBarEmoji>
                     </Nav.Link>
                 </OverlayTrigger>
-                <OverlayTrigger
-                    placement='top'
-                    overlay={
-                        <Tooltip>
-                            <b>Game</b> player
-                        </Tooltip>
-                    }
-                >
-                    <Nav.Link href="#">
-                        <NavBarEmoji>&#127923;</NavBarEmoji>
-                    </Nav.Link>
-                </OverlayTrigger>
+
+
+                <Nav.Link href="#" onClick={updatePlaying} >
+                    <NavBarEmoji>&#127923;</NavBarEmoji>
+                    <TabsCounterContainer>
+                        {props.playing && 
+                            <TabsCounterImg>&#128310;</TabsCounterImg>
+                        }
+                    </TabsCounterContainer>
+                </Nav.Link>
+
+
             </Nav>
             <Nav>
                 <Nav.Link href="#">
