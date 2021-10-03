@@ -13,10 +13,11 @@ function Contents(props) {
     if (contents && contents.length) {
         return (
             <ContentsContainer>
-                {contents.map((value, index) => {
+                {contents.map(value => {
                     if (value.type==='directory') {
                         return (
                             <Directory
+                                preview={props.preview}
                                 dir={value}
                                 key={`${value.type}-${value.id}`}
                                 addDir={props.addDir}
@@ -27,6 +28,7 @@ function Contents(props) {
                     else if (value.type==='file') {
                         return (
                             <File
+                                preview={props.preview}
                                 file={value}
                                 key={`${value.type}-${value.id}`}
                                 addDoc={props.addDoc}
@@ -44,7 +46,7 @@ function Contents(props) {
     }
     else {
         return (
-            <Error>This directory is empty.</Error>
+            <Error preview={props.preview}>This directory is empty.</Error>
         )
     }
 }

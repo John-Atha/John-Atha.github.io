@@ -10,12 +10,19 @@ function Directory(props) {
         setDir(props.dir);
     }, [props.dir])
 
-    return (
-        <Container onDoubleClick={()=>props.addDir(dir)}>
-            <Img src={folder_icon}/>
-            <Name>{dir.name}</Name>
-        </Container>
-    )
+        return (
+            <Container 
+                onDoubleClick={()=>props.addDir(dir)}
+                preview={props.preview}>
+                <Img
+                    preview={props.preview}
+                    src={folder_icon}
+                />
+                <Name preview={props.preview}>
+                    {dir.name}
+                </Name>
+            </Container>
+        )
 }
 
 export default Directory;

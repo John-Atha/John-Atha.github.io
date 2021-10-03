@@ -10,9 +10,16 @@ function File(props) {
     }, [props.file])
 
     return (
-        <Container onDoubleClick={()=>props.addDoc(file)} >
-            <Img src={file_icon}/>
-            <Name>{file.name}</Name>
+        <Container
+            onDoubleClick={()=>props.addDoc(file)}
+            preview={props.preview}>
+            <Img 
+                preview={props.preview}
+                src={file_icon}
+            />
+            <Name preview={props.preview}>
+                {file.name}
+            </Name>
         </Container>
     )
 }

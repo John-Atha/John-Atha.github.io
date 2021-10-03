@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Window, WindowBar, WindowKind, WindowKindImg, WindowKindName, WindowPill, NoBgButton, WindowButtons, WindowButton, ActiveWindows } from './styles';
+import { Window, WindowBar, WindowKind, WindowKindImg, WindowKindName, WindowPill, NoBgButton, WindowButtons, WindowButton, ActiveWindows, MarkdownContainer } from './styles';
 import ReactMarkdown from 'react-markdown';
 import file_icon from '../images/file.png' ;
 import '../App.css';
@@ -87,10 +87,9 @@ function DocumentWindow(props) {
                     </WindowButton>
                 </WindowButtons>
             </WindowBar>
-            <div style={{'marginTop': '60px'}} />
-            <div style={{'color': 'white', 'padding': '0px 10px'}}>
+            <MarkdownContainer>
                 <ReactMarkdown children={text} />
-            </div>
+            </MarkdownContainer>
         </Window>
     )
 }

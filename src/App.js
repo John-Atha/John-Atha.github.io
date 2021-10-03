@@ -161,6 +161,8 @@ function App() {
         showingDocWindow={showingDocWindow}
         showingDirWindow={showingDirWindow}
         showingNow={showingNow}
+        currentDirectory={currentDirectory}
+        currentDoc={currentDoc}
       />
     </div>
   );

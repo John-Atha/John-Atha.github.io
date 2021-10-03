@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { NavbarImg, TabsCounterImg, TabsCounterContainer, NavBarEmoji } from './styles';
+import PreviewDirectoryWindow from './PreviewDirectoryWindow';
+import PreviewDocumentWindow from './PreviewDocumentWindow';
 import dir_icon from '../images/folder.png';
 import file_icon from '../images/file.png';
 import '../App.css';
@@ -8,6 +10,12 @@ import '../App.css';
 function MyNavbar(props) {
     const [openDirectories, setOpenDirectories] = useState(props.openDirectories);
     const [openDocs, setOpenDocs] = useState(props.openDocs);
+    
+    const [currentDirectory, setCurrentDirectory] = useState(props.currentDirectory);
+    const [showingDirPreview, setShowingDirPreview] = useState(false);
+
+    const [currentDoc, setCurrentDoc] = useState(props.currentDoc);
+    const [showingDocPreview, setShowingDocPreview] = useState(false);
 
     useEffect(() => {
         setOpenDirectories(props.openDirectories);
@@ -16,6 +24,14 @@ function MyNavbar(props) {
     useEffect(() => {
         setOpenDocs(props.openDocs);
     }, [props.openDocs])
+
+    useEffect(() => {
+        setCurrentDirectory(props.currentDirectory);
+    }, [props.currentDirectory])
+
+    useEffect(() => {
+        setCurrentDoc(props.currentDoc);
+    }, [props.currentDoc])
 
     const updateDocsVisibility = () => {
         if (props.showingNow==='doc') {
@@ -65,46 +81,47 @@ function MyNavbar(props) {
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
                 {openDirectories.length!==0 &&
-                    <OverlayTrigger
-                        placement='top'
-                        overlay={
-                          <Tooltip>
-                            <b>Directories</b> manager
-                          </Tooltip>
-                        }
+                    <Nav.Link 
+                        onClick={updateDirsVisibility}
+                        onMouseOver={()=>setShowingDirPreview(true)}
+                        onMouseLeave={()=>setShowingDirPreview(false)}
                     >
-                        <Nav.Link onClick={updateDirsVisibility} tooltip='Directories manager'>
-                            <NavbarImg src={dir_icon} />
-                            <TabsCounterContainer>
-                                {openDirectories.map((value) => {
-                                    return (
-                                        <TabsCounterImg key={value.id}>&#128310;</TabsCounterImg>
-                                    )
-                                })}                    
-                            </TabsCounterContainer>
-                        </Nav.Link>
-                    </OverlayTrigger>
+                        {showingDirPreview &&
+                            <PreviewDirectoryWindow
+                                openDirectories={openDirectories}
+                                dir={currentDirectory}
+                            />
+                        }
+                        <NavbarImg src={dir_icon} />
+                        <TabsCounterContainer>
+                            {openDirectories.map((value) => {
+                                return (
+                                    <TabsCounterImg key={value.id}>&#128310;</TabsCounterImg>
+                                )
+                            })}                    
+                        </TabsCounterContainer>
+                    </Nav.Link>
                 }
                 {openDocs.length!==0 &&
-                    <OverlayTrigger
-                        placement='top'
-                        overlay={
-                            <Tooltip>
-                                <b>Documents</b> manager
-                            </Tooltip>
-                        }
+                    <Nav.Link
+                        onClick={updateDocsVisibility}
+                        onMouseOver={()=>setShowingDocPreview(true)}
+                        onMouseLeave={()=>setShowingDocPreview(false)}
                     >
-                        <Nav.Link onClick={updateDocsVisibility}>
-                            <NavbarImg src={file_icon} />
-                            <TabsCounterContainer>
-                                {openDocs.map((value) => {
-                                    return (
-                                        <TabsCounterImg key={value.id}>&#128310;</TabsCounterImg>
-                                    )
-                                })}                    
-                            </TabsCounterContainer>
-                        </Nav.Link>
-                    </OverlayTrigger>
+                        {showingDocPreview && 
+                            <PreviewDocumentWindow
+                                doc={currentDoc}
+                            />
+                        }
+                        <NavbarImg src={file_icon} />
+                        <TabsCounterContainer>
+                            {openDocs.map((value) => {
+                                return (
+                                    <TabsCounterImg key={value.id}>&#128310;</TabsCounterImg>
+                                )
+                            })}                    
+                        </TabsCounterContainer>
+                    </Nav.Link>
                 }
                 <OverlayTrigger
                     placement='top'
