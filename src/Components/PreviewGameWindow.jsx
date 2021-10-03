@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
 import {
-    PreviewSmallWindow, WindowBar, WindowKind, WindowKindName,
-    ActiveWindows, WindowPill, WindowButtons,
-    WindowButton, NoBgButton, OneGame, GameIcon,
-    GameContainer, TetrisStats, BoardsContainer,
-    Error, Success } from './styles';
-import { Button } from 'react-bootstrap';
-import Snake from 'snake-game-react';
-import Tetris from 'react-tetris';
-import Minesweeper from 'react-minesweeper';
-import "react-minesweeper/lib/minesweeper.css";
+    PreviewSmallWindow, WindowBar, WindowKindName,
+    OneGame, GameIcon, Success } from './styles';
 import snake_icon from '../images/snake.png';
 import tetris_icon from '../images/tetris.png';
 import minesweeper_icon from '../images/minesweeper.png';
@@ -46,6 +38,7 @@ function PreviewGameWindow(props) {
             const obj = games.filter(value => { return value.name===game.name });
             if (obj.length) setImage(obj[0].image);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [game])
 
     return (

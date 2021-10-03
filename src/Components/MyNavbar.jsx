@@ -21,7 +21,6 @@ function MyNavbar(props) {
     const [currentDoc, setCurrentDoc] = useState(props.currentDoc);
     const [showingDocPreviewTab, setShowingDocPreviewTab] = useState(false);
 
-    const [playing, setPlaying] = useState(props.playing);
     const [game, setGame] = useState(props.game);
     const [showingGamePreviewTab, setShowingGamePreviewTab] = useState(false);
 
@@ -40,10 +39,6 @@ function MyNavbar(props) {
     useEffect(() => {
         setCurrentDoc(props.currentDoc);
     }, [props.currentDoc])
-
-    useEffect(() => {
-        setPlaying(props.playing);
-    }, [props.playing])
 
     useEffect(() => {
         setGame(props.game);
