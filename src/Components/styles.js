@@ -10,7 +10,7 @@ export const ShowFullScreen = keyframes`
     }
     100% {
         position: absolute;
-        top: 0px;
+        top: 30px;
         left: 0px;
         width: 100%;
         height: 92%;
@@ -27,11 +27,68 @@ export const ShowNoFullScreen = keyframes`
     }
     100% {
         position: absolute;
-        top: 10px;
+        top: 40px;
         left: 10px;
         width: 90vw;
         height: 90vh;
     }
+`
+
+export const Slide1 = keyframes`
+    0% {
+        position: absolute;
+        top: 200px;
+        right: 50vw;
+        opacity: 0;
+    }
+    100% {
+        position: absolute;
+        top: 200px;
+        right: 10px;
+        opacity: 1;
+    }
+`
+
+export const Slide2 = keyframes`
+    0% {
+        position: absolute;
+        top: 250px;
+        right: 50vw;
+        opacity: 0;
+    }
+    100% {
+        position: absolute;
+        top: 250px;
+        right: 10px;
+        opacity: 1;
+    }
+`
+
+export const Show = keyframes`
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+`
+
+export const ShortBio = styled.div`
+    color: white;
+    z-index: -1;
+`
+
+export const BioHeader = styled.h1`
+    animation-name: ${Slide1};
+    animation-fill-mode: forwards;
+    animation-duration: 2s;
+    font-style: italic;
+`
+
+export const BioDescription = styled.h3`
+    animation-name: ${Slide2};
+    animation-fill-mode: forwards;
+    animation-duration: 4s;
 `
 
 export const Container = styled.div`
@@ -69,7 +126,6 @@ export const Name = styled.h6`
     margin: 2px;
     overflow-wrap: break-word;
     word-wrap: break-word;
-    word-break: break-all;
     ${props => props.preview && `
         font-size: 0.3rem;
     `}
@@ -81,14 +137,19 @@ export const Name = styled.h6`
         overflow-y: auto;
     }
 `
+
 export const Img = styled.img`
     ${props => props.preview && `
         width: 20px;
         height: 25px;
     `}
-    ${props => !props.preview && `
+    ${props => !props.preview && !props.npm && `
         width: 30px;
         height: 40px;    
+    `}
+    ${props => props.npm &&`
+        width: 40px;
+        height: 40px;
     `}
 `
 
@@ -102,8 +163,8 @@ export const Window = styled.div`
         animation-delay: 0s;
     `}
     ${props => !props.fullScreen && css`
-        width: 90vw;
-        height: 90vh;
+        width: 80vw;
+        height: 80vh !important;
         animation-name: ${ShowNoFullScreen};
         animation-fill-mode: forwards;
         animation-duration: 0.1s;
@@ -117,7 +178,8 @@ export const Window = styled.div`
     overflow-x: hidden;
     border: 1px solid grey;
     border-radius: 7px;
-    background-color: rgb(48, 47, 46);
+    background-color: lightgrey;
+    padding-bottom: 60px;
 `
 
 export const PreviewSmallWindow = styled.div`
@@ -127,7 +189,7 @@ export const PreviewSmallWindow = styled.div`
     overflow-x: hidden;
     border: 1px solid grey;
     border-radius: 7px;
-    background-color: rgb(48, 47, 46);
+    background-color: lightgrey;
     position: absolute;
     top: -100px;
 `
@@ -143,6 +205,7 @@ export const Error = styled.h6`
     `}
     color: red;
 `
+
 export const Success = styled.h6`
     ${props => props.preview && `
         font-size: 0.5rem;
@@ -154,7 +217,6 @@ export const Success = styled.h6`
     `}
     color: green;
 `
-
 
 export const WindowBar = styled.div`
     display: flex;
@@ -248,18 +310,18 @@ export const WindowKindName = styled.div`
 `
 
 export const NavbarImg = styled.img`
-    ${props => props.case!=='terminal' && props.case!=='pao' && `
-        width: 25px;
-        height: 30px;
+    ${props => props.case!=='terminal' && props.case!=='github' && `
+        width: 30px;
+        height: 35px;
     `}
     ${props => props.case==='terminal' && `
         width: 35px;
         height: 30px;
         border-radius: 5px;
     `}
-    ${props => props.case==='pao' && `
-        width: 50px;
-        height: 45px;
+    ${props => props.case==='github' && `
+        width: 45px;
+        height: 35px;
     `}
 `
 
@@ -270,6 +332,7 @@ export const NavBarEmoji = styled.div`
 export const TabsCounterImg = styled.div`
     font-size:0.5rem;
 `
+
 export const TabsCounterContainer = styled.div`
     text-align: center;
     justify-content: center;
@@ -346,15 +409,43 @@ export const TetrisStats = styled.div`
     width: 300px;
     margin: auto;
 `
+
 export const BoardsContainer = styled.div`
     display: flex;
     flex-flow: row wrap;
     margin: auto;
 `
 
-export const GamesBody = styled.div`
+export const WindowBody = styled.div`
     overflow-y: auto;
     color: white;
     max-height: 100%;
     padding-bottom: 100px;
+    padding-top: 50px;
+`
+
+export const TerminalBody = styled.div`
+    background-color: black;
+    color: green;
+    border-radius: 7px;
+    height: 100% !important;
+    max-height: 100% !important;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    position: relative;
+`
+
+export const TerminalLine = styled.div`
+    margin: 5px 0px;
+    display: flex;
+`
+
+export const TerminalInput = styled.input`
+    background-color: black;
+    border: none;
+    color: green;
+    &:focus {
+        outline: none;
+    }
+    width: 100%;
 `

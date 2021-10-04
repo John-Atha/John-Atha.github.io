@@ -7,7 +7,7 @@ import PreviewGameWindow from './PreviewGameWindow';
 import dir_icon from '../images/folder.png';
 import file_icon from '../images/file.png';
 import cmd_icon from '../images/cmd.png';
-import pao_icon from '../images/pao.png';
+import github_icon from '../images/Octocat.png';
 import '../App.css';
 
 function MyNavbar(props) {
@@ -23,6 +23,8 @@ function MyNavbar(props) {
 
     const [game, setGame] = useState(props.game);
     const [showingGamePreviewTab, setShowingGamePreviewTab] = useState(false);
+
+    const [showingTerminalPreviewTab, setShowingTerminalPreviewTab] = useState(false);
 
     useEffect(() => {
         setOpenDirectories(props.openDirectories);
@@ -61,7 +63,7 @@ function MyNavbar(props) {
             // if I do not have the priority
             else {
                 // remove my priority and hide me if I was the only one showing
-                if (props.showingDocWindow  && !props.showingDirWindow && !props.showingGameWindow) {
+                if (props.showingDocWindow  && !props.showingDirWindow && !props.showingGameWindow && !props.showingTerminalWindow) {
                     props.removeFromShowingNow('doc');
                     props.setShowingDocWindow(false);
                 }
@@ -96,7 +98,7 @@ function MyNavbar(props) {
             // if I do not have the priority
             else {
                 // remove my priority and hide me if I was the only one showing
-                if (props.showingDirWindow && !props.showingDocWindow && !props.showingGameWindow) {
+                if (props.showingDirWindow && !props.showingDocWindow && !props.showingGameWindow && !props.showingTerminalWindow) {
                     props.removeFromShowingNow('dir');
                     props.setShowingDirWindow(false);
                 }
@@ -139,7 +141,7 @@ function MyNavbar(props) {
                 // if I do not have the priority
                 else {
                     // remove my priority and hide me if I was the only one showing
-                    if (props.showingGameWindow && !props.showingDocWindow && !props.showingDirWindow) {
+                    if (props.showingGameWindow && !props.showingDocWindow && !props.showingDirWindow && !props.showingTerminalWindow) {
                         props.removeFromShowingNow('game');
                         props.setShowingGameWindow(false);
                     }
@@ -158,113 +160,180 @@ function MyNavbar(props) {
         }
     }
 
+    const updateTerminal = () => {
+        if (!props.isTerminalRunning) {
+            props.addToShowingNow('terminal');
+            props.setShowingTerminalWindow(true);
+            props.setIsTerminalRunning(true);
+        }
+        else {
+            if (props.showingNow.length) {
+                const curr = props.showingNow[props.showingNow.length-1];
+                if (curr==='terminal') {
+                    if (props.showingTerminalWindow) {
+                        props.setShowingTerminalWindow(false);
+                        props.removeFromShowingNow('terminal');
+                    }
+                    else {
+                        props.setShowingTerminalWindow(true);
+                    }
+                }
+                else {
+                    if (props.showingTerminalWindow && !props.showingDirWindow && !props.showingDocWindow && !props.showingGameWindow) {
+                        props.removeFromShowingNow('terminal');
+                        props.setShowingTerminalWindow(false);
+                    }
+                    else {
+                        props.addToShowingNow('terminal');
+                        props.setShowingTerminalWindow(true);
+                    }
+                }
+            }
+            else {
+                props.addToShowingNow('terminal');
+                props.setShowingTerminalWindow(true);
+            }
+        }
+    }
+
     return(
-        <Navbar variant='dark' expand="sm" fixed="bottom" style={{'padding': '0px 3px', 'height': '50px', 'backgroundColor': 'rgb(48, 47, 46)'}}>
-            <Navbar.Brand href="#home">
-                <NavbarImg case='pao' src={pao_icon} />
-            </Navbar.Brand>
+        <Navbar variant='dark' expand="sm" fixed="bottom" className='my-bottom-navbar'>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-                {openDirectories.length!==0 &&
-                    <Nav.Link 
-                        onClick={updateDirsVisibility}
-                        onMouseOver={()=>setShowingDirPreviewTab(true)}
-                        onMouseLeave={()=>setShowingDirPreviewTab(false)}
+                <Nav className="me-auto" style={{'margin': 'auto'}}>
+                    {openDirectories.length!==0 &&
+                        <Nav.Link 
+                            onClick={updateDirsVisibility}
+                            onMouseOver={()=>setShowingDirPreviewTab(true)}
+                            onMouseLeave={()=>setShowingDirPreviewTab(false)}
+                        >
+                            {showingDirPreviewTab &&
+                                <PreviewDirectoryWindow
+                                    openDirectories={openDirectories}
+                                    dir={currentDirectory}
+                                />
+                            }
+                            <NavbarImg src={dir_icon} />
+                            <TabsCounterContainer>
+                                {openDirectories.map((value) => {
+                                    return (
+                                        <TabsCounterImg key={value.id}>&#128310;</TabsCounterImg>
+                                    )
+                                })}                    
+                            </TabsCounterContainer>
+                        </Nav.Link>
+                    }
+                    {openDocs.length!==0 &&
+                        <Nav.Link
+                            onClick={updateDocsVisibility}
+                            onMouseOver={()=>setShowingDocPreviewTab(true)}
+                            onMouseLeave={()=>setShowingDocPreviewTab(false)}
+                        >
+                            {showingDocPreviewTab && 
+                                <PreviewDocumentWindow
+                                    doc={currentDoc}
+                                />
+                            }
+                            <NavbarImg src={file_icon} />
+                            <TabsCounterContainer>
+                                {openDocs.map((value) => {
+                                    return (
+                                        <TabsCounterImg key={value.id}>&#128310;</TabsCounterImg>
+                                    )
+                                })}                    
+                            </TabsCounterContainer>
+                        </Nav.Link>
+                    }
+                    
+                    <OverlayTrigger
+                        placement='top'
+                        overlay={
+                            <Tooltip>
+                                <b>Music</b> player
+                            </Tooltip>
+                        }
                     >
-                        {showingDirPreviewTab &&
-                            <PreviewDirectoryWindow
-                                openDirectories={openDirectories}
-                                dir={currentDirectory}
-                            />
+                        <Nav.Link href="#">
+                            <NavBarEmoji>&#127911;</NavBarEmoji>
+                        </Nav.Link>
+                    </OverlayTrigger>
+
+                    {!props.isTerminalRunning &&
+                        <OverlayTrigger
+                            placement='top'
+                            overlay={
+                                <Tooltip>
+                                    <b>Terminal</b>
+                                </Tooltip>
+                            }
+                        >
+                            <Nav.Link href="#" onClick={updateTerminal} >
+                                <NavbarImg case={'terminal'} src={cmd_icon} />
+                            </Nav.Link>
+                        </OverlayTrigger>
+                    }
+                    {props.isTerminalRunning &&
+                        <Nav.Link href="#" onClick={updateTerminal}>
+                            <NavbarImg case={'terminal'} src={cmd_icon} />
+                            <TabsCounterContainer>
+                                <TabsCounterImg>&#128310;</TabsCounterImg>
+                            </TabsCounterContainer>
+
+                        </Nav.Link>
+                    }
+
+                    {!props.playing &&
+                        <OverlayTrigger
+                            placement='top'
+                            overlay={
+                                <Tooltip>
+                                    <b>Game machine</b>
+                                </Tooltip>
+                            }
+                        >
+                            <Nav.Link href="#" onClick={updatePlaying}>
+                                <NavBarEmoji>&#127923;</NavBarEmoji>
+                            </Nav.Link>
+                        </OverlayTrigger>                    
+                    }
+
+                    {props.playing &&
+                        <Nav.Link 
+                            onClick={updatePlaying}
+                            onMouseOver={()=>setShowingGamePreviewTab(true)}
+                            onMouseLeave={()=>setShowingGamePreviewTab(false)}
+                        >
+                            <NavBarEmoji>&#127923;</NavBarEmoji>
+                            {showingGamePreviewTab &&
+                                <PreviewGameWindow
+                                    game={game}
+                                />
+                            }
+                            <TabsCounterContainer>
+                                {props.playing && 
+                                    <TabsCounterImg>&#128310;</TabsCounterImg>
+                                }
+                            </TabsCounterContainer>
+                        </Nav.Link>                    
+                    }
+
+                    <OverlayTrigger
+                        placement='top'
+                        overlay={
+                            <Tooltip>
+                                <b>Github profile</b>
+                            </Tooltip>
                         }
-                        <NavbarImg src={dir_icon} />
-                        <TabsCounterContainer>
-                            {openDirectories.map((value) => {
-                                return (
-                                    <TabsCounterImg key={value.id}>&#128310;</TabsCounterImg>
-                                )
-                            })}                    
-                        </TabsCounterContainer>
-                    </Nav.Link>
-                }
-                {openDocs.length!==0 &&
-                    <Nav.Link
-                        onClick={updateDocsVisibility}
-                        onMouseOver={()=>setShowingDocPreviewTab(true)}
-                        onMouseLeave={()=>setShowingDocPreviewTab(false)}
                     >
-                        {showingDocPreviewTab && 
-                            <PreviewDocumentWindow
-                                doc={currentDoc}
-                            />
-                        }
-                        <NavbarImg src={file_icon} />
-                        <TabsCounterContainer>
-                            {openDocs.map((value) => {
-                                return (
-                                    <TabsCounterImg key={value.id}>&#128310;</TabsCounterImg>
-                                )
-                            })}                    
-                        </TabsCounterContainer>
-                    </Nav.Link>
-                }
-                
-                <OverlayTrigger
-                    placement='top'
-                    overlay={
-                        <Tooltip>
-                            <b>Music</b> player
-                        </Tooltip>
-                    }
-                >
-                    <Nav.Link href="#">
-                        <NavBarEmoji>&#127911;</NavBarEmoji>
-                    </Nav.Link>
-                </OverlayTrigger>
-
-                <OverlayTrigger
-                    placement='top'
-                    overlay={
-                        <Tooltip>
-                            <b>Terminal</b>
-                        </Tooltip>
-                    }
-                >
-                    <Nav.Link href="#">
-                        <NavbarImg case={'terminal'} src={cmd_icon} />
-                    </Nav.Link>
-                </OverlayTrigger>
+                        <Nav.Link href="https://www.github.com/John-Atha" target="_blank" rel='noopener noreferrer'>
+                            <NavbarImg case={'github'} src={github_icon} />
+                        </Nav.Link>
+                    </OverlayTrigger>
+                    
 
 
-                <Nav.Link 
-                    onClick={updatePlaying}
-                    onMouseOver={()=>setShowingGamePreviewTab(true)}
-                    onMouseLeave={()=>setShowingGamePreviewTab(false)}
-                >
-                    <NavBarEmoji>&#127923;</NavBarEmoji>
-                    {showingGamePreviewTab && props.playing &&
-                        <PreviewGameWindow
-                            game={game}
-                        />
-                    }
-                    <TabsCounterContainer>
-                        {props.playing && 
-                            <TabsCounterImg>&#128310;</TabsCounterImg>
-                        }
-                    </TabsCounterContainer>
-                </Nav.Link>
 
-
-            </Nav>
-            <Nav>
-                <Nav.Link href="#">
-                    <NavBarEmoji>&#128266;</NavBarEmoji>
-                </Nav.Link>
-                <Nav.Link>
-                    {new Date().toString().slice(0, 21)}
-                </Nav.Link>
-            </Nav>
+                </Nav>
             </Navbar.Collapse>
         </Navbar>
     );

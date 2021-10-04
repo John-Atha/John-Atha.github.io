@@ -5,7 +5,7 @@ import {
     ActiveWindows, WindowPill, WindowButtons,
     WindowButton, NoBgButton, OneGame, GameIcon,
     GameContainer, TetrisStats, BoardsContainer,
-    Error, Success, GamesBody } from './styles';
+    Error, Success, WindowBody } from './styles';
 import { Button } from 'react-bootstrap';
 import Snake from 'snake-game-react';
 import Tetris from 'react-tetris';
@@ -112,7 +112,7 @@ function GameWindow(props) {
                 </WindowButtons>
             </WindowBar>                
             <div style={{'marginTop': '60px'}} />
-            <GamesBody>
+            <WindowBody>
                 {!game && 
                     <div style={{'color': 'white'}}>
                         <h2>Games</h2>
@@ -182,7 +182,7 @@ function GameWindow(props) {
                         />
                     </div>
                 }
-            </GamesBody>
+            </WindowBody>
         </Window>
     )
 }

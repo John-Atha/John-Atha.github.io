@@ -1,11 +1,14 @@
 .App {
-  background-image: url("./images/back1.jpg");
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
+  /*background-image: url("./images/back1.jpg");
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: cover; */
+  background-color: black;
   width: 100%;
   height: 100vh;
   padding: 0;
+  padding-top: 30px;
+  padding-bottom: 60px;
   margin: 0;
   overflow-y: hidden;
   overflow-x: hidden;
@@ -30,13 +33,25 @@ background-color: darkgrey;
 outline: 1px solid slategrey;
 }
 
-.nav-link {
-  text-align: center;
-  padding-top: 1px;
+.my-bottom-navbar {
+  padding: 4px 0px;
+  height: 60px;
+  background: rgba(163, 13, 13, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(163, 13, 13, 0.37);
+  backdrop-filter: blur( 54px );
+  -webkit-backdrop-filter: blur( 54px );
 }
 
-.nav-link:hover {
-  background-color: grey;
+.my-bottom-navbar .nav-link {
+  text-align: center;
+  padding: 3px;
+  padding-top: 1px;
+  margin: 5px;
+  border-radius: 15px;
+}
+
+.my-bottom-navbar .nav-link:hover {
+  background-color: lightgrey;
 }
 
 .navbar-collapse, .navbar-nav {
@@ -78,4 +93,16 @@ outline: 1px solid slategrey;
 }
 .piece-preview {
   background-color: #eee;
+}
+
+.terminal-base {
+  width: 100%;
+  max-width: 100% !important;
+  max-height: inherit !important;
+  height: inherit !important;
+  min-height: inherit !important;
+}
+
+.terminal-base div {
+  max-width: 100% !important;
 }
