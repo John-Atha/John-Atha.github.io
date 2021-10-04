@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ContentsContainer, Error } from './styles.js';
 import Directory from './Directory.jsx';
 import File from './File.jsx';
+import GithubUrl from './GithubUrl';
+import DeploymentUrl from './DeploymentUrl';
 
 function Contents(props) {
     const [contents, setContents] = useState(props.contents);
@@ -32,6 +34,24 @@ function Contents(props) {
                                 file={value}
                                 key={`${value.type}-${value.id}`}
                                 addDoc={props.addDoc}
+                            />
+                        )
+                    }
+                    else if (value.type==='github-url') {
+                        return (
+                            <GithubUrl
+                                preview={props.preview}
+                                project={value}
+                                key={value.url}
+                            />
+                        )
+                    }
+                    else if (value.type==='deployment-url') {
+                        return (
+                            <DeploymentUrl
+                                preview={props.preview}
+                                project={value}
+                                key={value.url}    
                             />
                         )
                     }
