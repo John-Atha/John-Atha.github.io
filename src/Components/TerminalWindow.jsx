@@ -9,13 +9,17 @@ import terminal_icon from '../images/cmd.png';
 import '../App.css';
 import { parent } from '../data';
 
+import figlet from 'figlet';
+import standard from 'figlet/importable-fonts/Standard.js'
+
 function TerminalWindow(props) {
     const [fullScreen, setFullScreen] = useState(props.isTerminalFullScreen);
     const [zIndex, setZIndex] = useState(props.zIndex);
-    const [commandsHistory, setCommandsHistory] = useState([]);
-    const [resultsHistory, setResultsHistory] = useState([]);
+    const [history, setHistory] = useState([])
     const [currentCommand, setCurrentCommand] = useState('');
     const [historyIndex, setHistoryIndex] = useState(0);
+    const [commandsHistory, setCommandsHistory] = useState([]);
+    const [logo, setLogo] = useState('');
 
     const list = () => {
         const result = [];
@@ -27,18 +31,23 @@ function TerminalWindow(props) {
 
     const clear = () => {
         console.log(`I am clearing...`)
-        setCommandsHistory([]);
-        setResultsHistory([]);
+        setHistory([]);
         setHistoryIndex(0);
+    }
+
+    const get_command_body = (command) => {
+        const command_parts = command.split('>');
+        const command_body = command_parts.slice(1).join(' ').trim();
+        return command_body;
     }
 
     const help = () => {
         const result = [];
         Object.entries(unary_commands).forEach((command) => {
-            result.push(`   * ${command[0]}`);
+            result.push(`   * ${descriptions[command[0]]}`);
         })
         Object.entries(binary_commands).forEach((command) => {
-            result.push(`   * ${command[0]} <var>`);
+            result.push(`   * ${descriptions[command[0]]}`);
         })
         return result.join('\n')
     }
@@ -106,6 +115,16 @@ function TerminalWindow(props) {
         play: () => { return play() }
     }
 
+    const descriptions = {
+        'cd':    `cd <dir_name>  : changes the current directory`,
+        'open':  `open <name>    : opens the specified directory / file / github url / deployment url`,
+        'ls':    `ls                            : lists the contents of the current directory`,
+        'clear': `clear                      : clears the terminal`,
+        'help':  `help                       : lists the available commands`,
+        'exit':  `exit                        : exits the terminal`,
+        'play':  `play                       : opens the gaming machine`,
+    }
+
     const goto = (dir_name) => {
         console.log(`I will go to '${dir_name}'`)
         if (dir_name==='.') return;
@@ -139,25 +158,37 @@ function TerminalWindow(props) {
     }
 
 
-    const msg='> Hello!\n> You can use the classical Unix-based commands to\n   * navigate through my files\n   * open my projects\n   * play games\n> Type \'help\' to see a detailed list of the available commands.';
-
+    const msg='> You can:\n   * navigate through my files   * open my projects   * play games\n> Type \'help\' to see a detailed list of the available commands.';
 
     const handleCommand = (event) => {
         event.preventDefault();
         const result = executeCommand(currentCommand);
-        if (currentCommand!=='clear') {
-            setResultsHistory(resultsHistory.concat(result));
-            setCommandsHistory(commandsHistory.concat(currentCommand));
+        if (get_command_body(currentCommand)!=='clear') {
+            setHistory(history.concat({ 
+                command: get_command_body(currentCommand),
+                result,
+                directory: props.currentDir,
+            }))
+            setCommandsHistory(commandsHistory.concat(get_command_body(currentCommand)));
         }
         setCurrentCommand('');
     }
 
     const executeCommand = (command) => {
         console.log(currentCommand);
-        const parts = command.split(' ');
+        const command_body = get_command_body(command);
+        const parts = command_body.split(' ');
         console.log(parts);
-        if (!parts.length) {
-            return(`Invalid command: ${command}`);
+        if (parts.length===1 && !parts[0]) {
+            setHistory(history.concat({ 
+                command: '',
+                result: '',
+                directory: props.currentDir,
+            }))
+            return;
+        }
+        else if (!parts.length) {
+            return(`Invalid command: ${command_body}`);
         }
         else if (parts.length===1) {
             const method = parts[0];
@@ -167,7 +198,7 @@ function TerminalWindow(props) {
                 return unary_commands[method]();
             }
             else {
-                return(`Invalid command: ${command}`);
+                return(`Invalid command: ${method}`);
             }
         }
         else {
@@ -191,14 +222,18 @@ function TerminalWindow(props) {
         if (code=="ArrowUp" && Math.abs(historyIndex)<commandsHistory.length) {
             setHistoryIndex(historyIndex-1);
         }
-        else if (code=="ArrowDown" && historyIndex<-1) {
+        else if (code=="ArrowDown" && historyIndex<=-1) {
             setHistoryIndex(historyIndex+1);
         }
     }
 
     useEffect(() => {
-        if (commandsHistory.length) {
-            setCurrentCommand(commandsHistory[commandsHistory.length+historyIndex]);
+        if (commandsHistory.length && historyIndex<0) {
+            setCurrentCommand(`> ${commandsHistory[commandsHistory.length+historyIndex]}`);
+            console.log(`I am going to '> ${commandsHistory[commandsHistory.length+historyIndex]}'`)
+        }
+        else if (historyIndex==0) {
+            setCurrentCommand('');
         }
     }, [historyIndex])
 
@@ -210,6 +245,16 @@ function TerminalWindow(props) {
     useEffect(() => {
         setFullScreen(props.isTerminalFullScreen);
     }, [props.isTerminalFullScreen])
+
+    useEffect(() => {
+        figlet.parseFont('Standard', standard);
+        figlet.text('Hello World !!', {
+            font: 'Standard',
+        }, function(err, data) {
+            console.log(data);
+            setLogo(data);
+        });
+    }, [])
 
     const hide = () => {
         props.removeFromShowingNow('terminal');
@@ -252,26 +297,29 @@ function TerminalWindow(props) {
             </WindowBar>
             <div style={{'marginTop': '45px'}} />
             <TerminalBody>
-                    {!commandsHistory.length &&
+                    {!history.length &&
+                        <TerminalLine><pre>{logo}</pre></TerminalLine>
+                    } 
+                    {!history.length &&
                         <TerminalLine>{msg}</TerminalLine>
                     }
-                    {commandsHistory.map((value, index) => {
+                    {history.map((value, index) => {
                         return (
-                            <div style={{'border': '1px solid grey'}}>
+                            <div>
                                 <TerminalLine key={`command-${index}`}>
-                                    {`${props.currentDir.name}> ${value}`}
+                                    {`${value.directory.name}> ${value.command}`}
                                 </TerminalLine>
                                 <TerminalLine key={`result-${index}`}>
-                                    {resultsHistory[index]}
+                                    {value.result}
                                 </TerminalLine>
                             </div>
                         )
                     })}
                     <TerminalLine>
-                        <div style={{'display': 'inline-table'}}>{`${props.currentDir.name}> `}</div>
                         <form onSubmit={handleCommand} style={{'width': '100%'}}>
                         <TerminalInput
-                            value={currentCommand}
+                            autoFocus
+                            value={`${props.currentDir.name}> ${currentCommand.split('>').slice(1).join(' ').slice(1)}`}
                             onChange={(event)=>{setCurrentCommand(event.target.value)}}
                             onKeyUp={checkArrows}
                             />

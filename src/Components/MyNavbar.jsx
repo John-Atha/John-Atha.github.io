@@ -4,6 +4,7 @@ import { NavbarImg, TabsCounterImg, TabsCounterContainer, NavBarEmoji } from './
 import PreviewDirectoryWindow from './PreviewDirectoryWindow';
 import PreviewDocumentWindow from './PreviewDocumentWindow';
 import PreviewGameWindow from './PreviewGameWindow';
+import PreviewTerminalWindow from './PreviewTerminalWindow';
 import dir_icon from '../images/folder.png';
 import file_icon from '../images/file.png';
 import cmd_icon from '../images/cmd.png';
@@ -272,9 +273,19 @@ function MyNavbar(props) {
                             </Nav.Link>
                         </OverlayTrigger>
                     }
+
                     {props.isTerminalRunning &&
-                        <Nav.Link href="#" onClick={updateTerminal}>
+                        <Nav.Link 
+                            onClick={updateTerminal}
+                            onMouseOver={()=>setShowingTerminalPreviewTab(true)}
+                            onMouseLeave={()=>setShowingTerminalPreviewTab(false)}
+                        >
                             <NavbarImg case={'terminal'} src={cmd_icon} />
+                            {showingTerminalPreviewTab &&
+                                <PreviewTerminalWindow
+                                    currDir={props.currDir}    
+                                />
+                            }
                             <TabsCounterContainer>
                                 <TabsCounterImg>&#128310;</TabsCounterImg>
                             </TabsCounterContainer>
