@@ -32,6 +32,11 @@ function App() {
   const [isTerminalRunning, setIsTerminalRunning] = useState(false);
   const [terminalCurrentDir, setTerminalCurrentDir] = useState(dir0);
 
+  const [history, setHistory] = useState([])
+  const [currentCommand, setCurrentCommand] = useState('');
+  const [commandsHistory, setCommandsHistory] = useState([]);
+
+
   const [isDirFullScreen, setIsDirFullScreen] = useState(false);
   const [isDocFullScreen, setIsDocFullScreen] = useState(false);
   const [isGameFullScreen, setIsGameFullScreen] = useState(false);
@@ -228,6 +233,12 @@ function App() {
           closeTerminal={closeTerminal}
           currentDir={terminalCurrentDir}
           setCurrentDir={setTerminalCurrentDir}
+          history={history}
+          setHistory={setHistory}
+          commandsHistory={commandsHistory}
+          setCommandsHistory={setCommandsHistory}
+          currentCommand={currentCommand}
+          setCurrentCommand={setCurrentCommand}
           addDoc={addDoc}
           addDir={addDir}
           setPlaying={setPlaying}

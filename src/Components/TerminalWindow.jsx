@@ -15,10 +15,7 @@ import standard from 'figlet/importable-fonts/Standard.js'
 function TerminalWindow(props) {
     const [fullScreen, setFullScreen] = useState(props.isTerminalFullScreen);
     const [zIndex, setZIndex] = useState(props.zIndex);
-    const [history, setHistory] = useState([])
-    const [currentCommand, setCurrentCommand] = useState('');
     const [historyIndex, setHistoryIndex] = useState(0);
-    const [commandsHistory, setCommandsHistory] = useState([]);
     const [logo, setLogo] = useState('');
 
     const list = () => {
@@ -31,7 +28,7 @@ function TerminalWindow(props) {
 
     const clear = () => {
         console.log(`I am clearing...`)
-        setHistory([]);
+        props.setHistory([]);
         setHistoryIndex(0);
     }
 
@@ -101,7 +98,6 @@ function TerminalWindow(props) {
         return;        
     }
   
-        
     const binary_commands = {
         cd: (smth) => { return goto(smth) },
         open: (smth) => { return open(smth) },
@@ -157,30 +153,35 @@ function TerminalWindow(props) {
         props.setCurrentDir(directory_obj);
     }
 
-
     const msg='> You can:\n   * navigate through my files   * open my projects   * play games\n> Type \'help\' to see a detailed list of the available commands.';
 
     const handleCommand = (event) => {
         event.preventDefault();
-        const result = executeCommand(currentCommand);
-        if (get_command_body(currentCommand)!=='clear') {
-            setHistory(history.concat({ 
-                command: get_command_body(currentCommand),
+        const result = executeCommand(props.currentCommand);
+        if (get_command_body(props.currentCommand)!=='clear') {
+            props.setHistory(props.history.concat({ 
+                command: get_command_body(props.currentCommand),
                 result,
                 directory: props.currentDir,
-            }))
-            setCommandsHistory(commandsHistory.concat(get_command_body(currentCommand)));
+            }));
+            props.setCommandsHistory(props.commandsHistory.concat(get_command_body(props.currentCommand)));
         }
-        setCurrentCommand('');
+        props.setCurrentCommand('');
+        if (get_command_body(props.currentCommand)!=='exit') {
+            setTimeout(() => {
+                const el = document.getElementById('term-body');
+                console.log(el.scrollTop = el.scrollHeight);    
+            }, 200);
+        }
     }
 
     const executeCommand = (command) => {
-        console.log(currentCommand);
+        console.log(props.currentCommand);
         const command_body = get_command_body(command);
         const parts = command_body.split(' ');
         console.log(parts);
         if (parts.length===1 && !parts[0]) {
-            setHistory(history.concat({ 
+            props.setHistory(props.history.concat({ 
                 command: '',
                 result: '',
                 directory: props.currentDir,
@@ -215,11 +216,11 @@ function TerminalWindow(props) {
 
     const checkArrows = (event) => {
         event.preventDefault();
-        if (!commandsHistory.length) return;
+        if (!props.commandsHistory.length) return;
         let code = null;
         if (event.key) code = event.key;
         console.log(code);
-        if (code=="ArrowUp" && Math.abs(historyIndex)<commandsHistory.length) {
+        if (code=="ArrowUp" && Math.abs(historyIndex)<props.commandsHistory.length) {
             setHistoryIndex(historyIndex-1);
         }
         else if (code=="ArrowDown" && historyIndex<=-1) {
@@ -228,12 +229,12 @@ function TerminalWindow(props) {
     }
 
     useEffect(() => {
-        if (commandsHistory.length && historyIndex<0) {
-            setCurrentCommand(`> ${commandsHistory[commandsHistory.length+historyIndex]}`);
-            console.log(`I am going to '> ${commandsHistory[commandsHistory.length+historyIndex]}'`)
+        if (props.commandsHistory.length && historyIndex<0) {
+            props.setCurrentCommand(`> ${props.commandsHistory[props.commandsHistory.length+historyIndex]}`);
+            console.log(`I am going to '> ${props.commandsHistory[props.commandsHistory.length+historyIndex]}'`)
         }
         else if (historyIndex==0) {
-            setCurrentCommand('');
+            props.setCurrentCommand('');
         }
     }, [historyIndex])
 
@@ -296,14 +297,14 @@ function TerminalWindow(props) {
                 </WindowButtons>
             </WindowBar>
             <div style={{'marginTop': '45px'}} />
-            <TerminalBody>
-                    {!history.length &&
+            <TerminalBody id='term-body'>
+                    {!props.history.length &&
                         <TerminalLine><pre>{logo}</pre></TerminalLine>
                     } 
-                    {!history.length &&
+                    {!props.history.length &&
                         <TerminalLine>{msg}</TerminalLine>
                     }
-                    {history.map((value, index) => {
+                    {props.history.map((value, index) => {
                         return (
                             <div>
                                 <TerminalLine key={`command-${index}`}>
@@ -316,11 +317,12 @@ function TerminalWindow(props) {
                         )
                     })}
                     <TerminalLine>
-                        <form onSubmit={handleCommand} style={{'width': '100%'}}>
+                        <form 
+                            onSubmit={handleCommand} style={{'width': '100%'}}>
                         <TerminalInput
                             autoFocus
-                            value={`${props.currentDir.name}> ${currentCommand.split('>').slice(1).join(' ').slice(1)}`}
-                            onChange={(event)=>{setCurrentCommand(event.target.value)}}
+                            value={`${props.currentDir.name}> ${props.currentCommand.split('>').slice(1).join(' ').slice(1)}`}
+                            onChange={(event)=>{props.setCurrentCommand(event.target.value)}}
                             onKeyUp={checkArrows}
                             />
                         </form>
