@@ -198,8 +198,7 @@ function MyNavbar(props) {
     }
 
     return(
-        <Navbar variant='dark' expand="sm" fixed="bottom" className='my-bottom-navbar'>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar variant='dark' fixed="bottom" className='my-bottom-navbar'>
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto" style={{'margin': 'auto'}}>
                     {openDirectories.length!==0 &&

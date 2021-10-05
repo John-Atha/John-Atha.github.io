@@ -220,10 +220,10 @@ function TerminalWindow(props) {
         let code = null;
         if (event.key) code = event.key;
         console.log(code);
-        if (code=="ArrowUp" && Math.abs(historyIndex)<props.commandsHistory.length) {
+        if (code==="ArrowUp" && Math.abs(historyIndex)<props.commandsHistory.length) {
             setHistoryIndex(historyIndex-1);
         }
-        else if (code=="ArrowDown" && historyIndex<=-1) {
+        else if (code==="ArrowDown" && historyIndex<=-1) {
             setHistoryIndex(historyIndex+1);
         }
     }
@@ -233,9 +233,10 @@ function TerminalWindow(props) {
             props.setCurrentCommand(`> ${props.commandsHistory[props.commandsHistory.length+historyIndex]}`);
             console.log(`I am going to '> ${props.commandsHistory[props.commandsHistory.length+historyIndex]}'`)
         }
-        else if (historyIndex==0) {
+        else if (historyIndex===0) {
             props.setCurrentCommand('');
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [historyIndex])
 
 
