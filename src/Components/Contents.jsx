@@ -34,6 +34,7 @@ function Contents(props) {
                                 file={value}
                                 key={`${value.type}-${value.id}`}
                                 addDoc={props.addDoc}
+                                breakLine={props.case==='desktop'}
                             />
                         )
                     }

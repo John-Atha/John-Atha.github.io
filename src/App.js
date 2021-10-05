@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { data } from './data';
-import { ShortBio, BioHeader, BioDescription } from './Components/styles';
+import { data, dir0 } from './data';
+import { ShortBio, BioHeader, BioDescription, BioDetail } from './Components/styles';
 import Contents from './Components/Contents';
 import DirectoryWindow from './Components/DirectoryWindow';
 import DocumentWindow from './Components/DocumentWindow';
@@ -30,7 +30,7 @@ function App() {
   const [game, setGame] = useState(null);
 
   const [isTerminalRunning, setIsTerminalRunning] = useState(false);
-  const [terminalCurrentDir, setTerminalCurrentDir] = useState({name: '/', contents: data});
+  const [terminalCurrentDir, setTerminalCurrentDir] = useState(dir0);
 
   const [isDirFullScreen, setIsDirFullScreen] = useState(false);
   const [isDocFullScreen, setIsDocFullScreen] = useState(false);
@@ -157,10 +157,13 @@ function App() {
     <div className="App">
       <ShortBio>
         <BioHeader>Hello, I'm John.</BioHeader>
-        <BioDescription>A junior software developer from Athens, Greece.</BioDescription>
+        <BioDescription>A 22 years old junior software developer from Athens, Greece,</BioDescription>
+        <BioDetail>trying to choose between web and AI development.</BioDetail>
+
       </ShortBio>
       <Contents
         contents={data}
+        case='desktop'
         setShowingDirWindow={setShowingDirWindow}
         addDir={addDir}
         removeDir={removeDir}

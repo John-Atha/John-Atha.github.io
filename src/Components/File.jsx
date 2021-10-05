@@ -12,7 +12,8 @@ function File(props) {
     return (
         <Container
             onDoubleClick={()=>props.addDoc(file)}
-            preview={props.preview}>
+            preview={props.preview}
+            breakLine={props.breakLine}>
             <Img 
                 preview={props.preview}
                 src={file_icon}

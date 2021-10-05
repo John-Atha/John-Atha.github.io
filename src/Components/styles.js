@@ -64,6 +64,21 @@ export const Slide2 = keyframes`
     }
 `
 
+export const Slide3 = keyframes`
+    0% {
+        position: absolute;
+        top: 300px;
+        right: 50vw;
+        opacity: 0;
+    }
+    100% {
+        position: absolute;
+        top: 300px;
+        right: 10px;
+        opacity: 1;
+    }
+`
+
 export const Show = keyframes`
     0% {
         opacity: 0;
@@ -88,6 +103,12 @@ export const BioHeader = styled.h1`
 export const BioDescription = styled.h3`
     animation-name: ${Slide2};
     animation-fill-mode: forwards;
+    animation-duration: 3s;
+`
+
+export const BioDetail = styled.h4`
+    animation-name: ${Slide3};
+    animation-fill-mode: forwards;
     animation-duration: 4s;
 `
 
@@ -101,6 +122,9 @@ export const Container = styled.div`
         margin: 10px;
         padding: 3px;
         width: 100px;    
+    `}
+    ${props => props.breakLine && css`
+        margin-right: auto !important;
     `}
     text-align: center;
     height: min-content;
@@ -178,7 +202,7 @@ export const Window = styled.div`
     overflow-x: hidden;
     border: 1px solid grey;
     border-radius: 7px;
-    background-color: lightgrey;
+    background-color: black;
     padding-bottom: 60px;
 `
 
@@ -189,9 +213,9 @@ export const PreviewSmallWindow = styled.div`
     overflow-x: hidden;
     border: 1px solid grey;
     border-radius: 7px;
-    background-color: lightgrey;
+    background-color: black;
     position: absolute;
-    top: -100px;
+    top: -90px;
 `
 
 export const Error = styled.h6`
@@ -430,14 +454,23 @@ export const TerminalBody = styled.div`
     border-radius: 7px;
     height: 100% !important;
     max-height: 100% !important;
-    overflow-y: auto;
+    ${props => !props.preview && css`
+        overflow-y: auto;
+    `}
+    ${props => props.preview && css`
+        overflow-y: hide;
+    `}
     white-space: pre-wrap;
     position: relative;
+
 `
 
 export const TerminalLine = styled.div`
-    margin: 5px 0px;
+    margin: 0px 0px;
     display: flex;
+    ${props => props.preview && css`
+        font-size: 0.8rem;
+    `}
 `
 
 export const TerminalInput = styled.input`

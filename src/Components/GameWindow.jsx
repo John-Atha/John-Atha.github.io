@@ -111,7 +111,6 @@ function GameWindow(props) {
                     </WindowButton>
                 </WindowButtons>
             </WindowBar>                
-            <div style={{'marginTop': '60px'}} />
             <WindowBody>
                 {!game && 
                     <div style={{'color': 'white'}}>
