@@ -258,7 +258,7 @@ export const data = [
 
 export const dir0 = {
     id: 1,
-    name: 'root',
+    name: 'guest',
     contents: data,
     type: 'directory',
 }

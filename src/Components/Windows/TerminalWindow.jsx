@@ -17,6 +17,7 @@ function TerminalWindow(props) {
     const [zIndex, setZIndex] = useState(props.zIndex);
     const [historyIndex, setHistoryIndex] = useState(0);
     const [logo, setLogo] = useState('');
+    const [showMsg, setShowMsg] = useState(true);
 
     const list = () => {
         const result = [];
@@ -176,6 +177,7 @@ function TerminalWindow(props) {
     }
 
     const executeCommand = (command) => {
+        setShowMsg(false);
         console.log(props.currentCommand);
         const command_body = get_command_body(command);
         const parts = command_body.split(' ');
@@ -256,6 +258,7 @@ function TerminalWindow(props) {
             console.log(data);
             setLogo(data);
         });
+        clear();
     }, [])
 
     const hide = () => {
@@ -299,10 +302,10 @@ function TerminalWindow(props) {
             </WindowBar>
             <div style={{'marginTop': '45px'}} />
             <TerminalBody id='term-body'>
-                    {!props.history.length &&
+                    {showMsg &&
                         <TerminalLine><pre>{logo}</pre></TerminalLine>
                     } 
-                    {!props.history.length &&
+                    {showMsg &&
                         <TerminalLine>{msg}</TerminalLine>
                     }
                     {props.history.map((value, index) => {

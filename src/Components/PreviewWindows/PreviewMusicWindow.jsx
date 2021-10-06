@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { PreviewSmallWindow, WindowBar, WindowKindImg, WindowKindName } from '../styles';
+import React from 'react';
+import { PreviewSmallWindow, WindowBar, WindowKindName } from '../styles';
 import '../../App.css';
 
 function PreviewMusicWindow(props) {
-    const [dir, setDir] = useState(props.dir);
-
-    useEffect(() => {
-        setDir(props.dir);
-    }, [props.dir])
 
     return (
         <PreviewSmallWindow>
