@@ -12,7 +12,8 @@ function Directory(props) {
     }, [props.dir])
 
         return (
-            <Container 
+            <Container
+                mobile={window.innerWidth<400}
                 onDoubleClick={()=>props.addDir(dir)}
                 preview={props.preview}>
                 <Img

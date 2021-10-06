@@ -11,6 +11,7 @@ function GithubUrl(props) {
 
     return (
         <Container
+            mobile={window.innerWidth<400}
             onDoubleClick={()=>window.open(project.url, '_blank')}
             preview={props.preview}>
             <Img 

@@ -48,6 +48,9 @@ export const Container = styled.div`
     ${props => props.breakLine && css`
         margin-right: auto !important;
     `}
+    ${props => props.mobile && css`
+        width: 60px !important;
+    `}
     text-align: center;
     height: min-content;
     border-radius: 5px;
@@ -205,6 +208,8 @@ export const NoBgButton = styled.button`
     background-color: inherit;
     border: none;
     margin: auto;
+    color: white !important;
+    width: max-content;
 `
 
 export const WindowButtons = styled.div`
@@ -214,19 +219,21 @@ export const WindowButtons = styled.div`
     top: 0px;
     right: 0px;
     height: inherit;
+    width: 100px;
 `
 
 export const WindowButton = styled.button`
     font-size: 0.8rem;
-    margin: auto;
+    margin: auto 0px;
 `
 
 export const ActiveWindows = styled.div`
     display: flex;
-    width: 70%;
+    width: 40%;
     overflow-x: auto;
     overflow-y: hidden;
     height: inherit;
+    margin-right: 10%;
 `
 
 export const WindowKind = styled.div`

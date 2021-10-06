@@ -11,6 +11,7 @@ function File(props) {
 
     return (
         <Container
+            mobile={window.innerWidth<400}
             onDoubleClick={()=>props.addDoc(file)}
             preview={props.preview}
             breakLine={props.breakLine}>

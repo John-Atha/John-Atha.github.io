@@ -34,7 +34,7 @@ function Contents(props) {
                                 file={value}
                                 key={`${value.type}-${value.id}`}
                                 addDoc={props.addDoc}
-                                breakLine={props.case==='desktop'}
+                                breakLine={props.case==='desktop' && window.innerWidth>400}
                             />
                         )
                     }
@@ -67,7 +67,9 @@ function Contents(props) {
     }
     else {
         return (
-            <Error preview={props.preview}>This directory is empty.</Error>
+            <Error preview={props.preview}>
+                This directory is empty.
+            </Error>
         )
     }
 }

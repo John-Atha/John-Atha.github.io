@@ -4,13 +4,13 @@ import styled, { keyframes } from 'styled-components';
 export const Slide1 = keyframes`
     0% {
         position: absolute;
-        top: 200px;
+        top: 300px;
         right: 50vw;
         opacity: 0;
     }
     100% {
         position: absolute;
-        top: 200px;
+        top: 300px;
         right: 10px;
         opacity: 1;
     }
@@ -19,13 +19,13 @@ export const Slide1 = keyframes`
 export const Slide2 = keyframes`
     0% {
         position: absolute;
-        top: 250px;
+        top: 350px;
         right: 50vw;
         opacity: 0;
     }
     100% {
         position: absolute;
-        top: 250px;
+        top: 350px;
         right: 10px;
         opacity: 1;
     }
@@ -34,13 +34,13 @@ export const Slide2 = keyframes`
 export const Slide3 = keyframes`
     0% {
         position: absolute;
-        top: 300px;
+        top: 400px;
         right: 50vw;
         opacity: 0;
     }
     100% {
         position: absolute;
-        top: 300px;
+        top: 400px;
         right: 10px;
         opacity: 1;
     }
