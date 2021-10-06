@@ -7,6 +7,7 @@ import DirectoryWindow from './Components/Windows/DirectoryWindow';
 import DocumentWindow from './Components/Windows/DocumentWindow';
 import GameWindow from './Components/Windows/GameWindow';
 import TerminalWindow from './Components/Windows/TerminalWindow';
+import MusicWindow from './Components/Windows/MusicWindow';
 import MyNavbar from './Components/Navbars/MyNavbar';
 import TopNavbar from './Components/Navbars/TopNavbar';
 
@@ -16,6 +17,7 @@ function App() {
   const [showingDocWindow, setShowingDocWindow] = useState(false);
   const [showingGameWindow, setShowingGameWindow] = useState(false);
   const [showingTerminalWindow, setShowingTerminalWindow] = useState(false);
+  const [showingMusicWindow, setShowingMusicWindow] = useState(false);
   const [showingNow, setShowingNow] = useState([]);
 
   const [currentDirectory, setCurrentDirectory] = useState(null);
@@ -36,11 +38,13 @@ function App() {
   const [currentCommand, setCurrentCommand] = useState('');
   const [commandsHistory, setCommandsHistory] = useState([]);
 
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
 
   const [isDirFullScreen, setIsDirFullScreen] = useState(false);
   const [isDocFullScreen, setIsDocFullScreen] = useState(false);
   const [isGameFullScreen, setIsGameFullScreen] = useState(false);
   const [isTerminalFullScreen, setIsTerminalFullScreen] = useState(false);
+  const [isMusicFullScreen, setIsMusicFullScreen] = useState(false);
 
   const addToShowingNow = (str) => {
     // add 'dir' to the stack
@@ -120,6 +124,12 @@ function App() {
     setIsTerminalRunning(false);
     setShowingTerminalWindow(false);
     removeFromShowingNow('terminal');
+  }
+
+  const closeMusic = () => {
+    setShowingMusicWindow(false);
+    setIsMusicPlaying(false);
+    removeFromShowingNow('music');
   }
 
   useEffect(() => {
@@ -246,6 +256,18 @@ function App() {
           setShowingGameWindow={setShowingGameWindow}
         />
       }
+      {isMusicPlaying && 
+        <MusicWindow
+          zIndex={showingNow.length ? (showingNow[showingNow.length-1]==='music' ? 2 : 1) : 1}
+          setShowingMusicWindow={setShowingMusicWindow}
+          showingMusicWindow={showingMusicWindow}
+          addToShowingNow={addToShowingNow}
+          removeFromShowingNow={removeFromShowingNow}
+          isMusicFullScreen={isMusicFullScreen}
+          setIsMusicFullScreen={setIsMusicFullScreen}
+          closeMusic={closeMusic}
+        />
+      }
       <MyNavbar
         openDocs={openDocs}
         openDirectories={openDirectories}
@@ -253,6 +275,7 @@ function App() {
         setShowingDirWindow={setShowingDirWindow}
         setShowingGameWindow={setShowingGameWindow}
         setShowingTerminalWindow={setShowingTerminalWindow}
+        setShowingMusicWindow={setShowingMusicWindow}
         addToShowingNow={addToShowingNow}
         removeFromShowingNow={removeFromShowingNow}
         showingNow={showingNow}
@@ -260,6 +283,7 @@ function App() {
         showingDirWindow={showingDirWindow}
         showingGameWindow={showingGameWindow}
         showingTerminalWindow={showingTerminalWindow}
+        showingMusicWindow={showingMusicWindow}
         currentDirectory={currentDirectory}
         currentDoc={currentDoc}
         playing={playing}
@@ -267,6 +291,8 @@ function App() {
         game={game}
         isTerminalRunning={isTerminalRunning}
         setIsTerminalRunning={setIsTerminalRunning}
+        isMusicPlaying={isMusicPlaying}
+        setIsMusicPlaying={setIsMusicPlaying}
       />
       <TopNavbar />
     </div>

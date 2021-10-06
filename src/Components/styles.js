@@ -197,6 +197,10 @@ export const Window = styled.div`
     ${props => `
         z-index: ${props.zIndex};
     `}
+    ${props => props.case==='music' && !props.showing && css`
+        width:  0 !important;
+        height: 0 !important;
+    `}
     position: absolute;
     overflow-y: hidden;
     overflow-x: hidden;

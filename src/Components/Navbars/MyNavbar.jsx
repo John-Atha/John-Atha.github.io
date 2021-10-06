@@ -5,6 +5,7 @@ import PreviewDirectoryWindow from '../PreviewWindows/PreviewDirectoryWindow';
 import PreviewDocumentWindow from '../PreviewWindows/PreviewDocumentWindow';
 import PreviewGameWindow from '../PreviewWindows/PreviewGameWindow';
 import PreviewTerminalWindow from '../PreviewWindows/PreviewTerminalWindow';
+import PreviewMusicWindow from '../PreviewWindows/PreviewMusicWindow';
 import dir_icon from '../../images/folder.png';
 import file_icon from '../../images/file.png';
 import cmd_icon from '../../images/cmd.png';
@@ -26,6 +27,8 @@ function MyNavbar(props) {
     const [showingGamePreviewTab, setShowingGamePreviewTab] = useState(false);
 
     const [showingTerminalPreviewTab, setShowingTerminalPreviewTab] = useState(false);
+
+    const [showingMusicPreviewTab, setShowingMusicPreviewTab] = useState(false);
 
     useEffect(() => {
         setOpenDirectories(props.openDirectories);
@@ -197,6 +200,48 @@ function MyNavbar(props) {
         }
     }
 
+    const updateMusic = () => {
+        if (!props.isMusicPlaying) {
+            props.addToShowingNow('music');
+            props.setShowingMusicWindow(true);
+            props.setIsMusicPlaying(true);
+        }
+        else {
+            if (props.showingNow.length) {
+                const curr = props.showingNow[props.showingNow.length-1];
+                // if I have the priority, alternate my showing state
+                if (curr==='music') {
+                    if (props.showingMusicWindow) {
+                        props.setShowingMusicWindow(false);
+                        props.removeFromShowingNow('music');
+                    }
+                    else {
+                        props.setShowingMusicWindow(true);
+                    }
+                }
+                // if I do not have the priority
+                else {
+                    // remove my priority and hide me if I was the only one showing
+                    if (props.showingMusicWindow && !props.showingDocWindow && !props.showingDocWindow && !props.showingGameWindow && !props.showingTerminalWindow) {
+                        props.removeFromShowingNow('music');
+                        props.setShowingMusicWindow(false);
+                    }
+                    // give me the priority and show me if others are shown too
+                    else {
+                        props.addToShowingNow('music');
+                        props.setShowingMusicWindow(true);
+                    }
+                }
+            }
+            // else give me the priority and show me
+            else {
+                props.addToShowingNow('music');
+                props.setShowingMusicWindow(true);
+            }
+        }
+
+    }
+
     return(
         <Navbar variant='dark' fixed="bottom" className='my-bottom-navbar'>
             <Navbar.Collapse id="basic-navbar-nav">
@@ -245,18 +290,36 @@ function MyNavbar(props) {
                         </Nav.Link>
                     }
                     
-                    <OverlayTrigger
-                        placement='top'
-                        overlay={
-                            <Tooltip>
-                                <b>Music</b> player
-                            </Tooltip>
-                        }
-                    >
-                        <Nav.Link href="#">
+                    {!props.isMusicPlaying && 
+                        <OverlayTrigger
+                            placement='top'
+                            overlay={
+                                <Tooltip>
+                                    <b>Music</b> player
+                                </Tooltip>
+                            }
+                        >
+                            <Nav.Link  onClick={updateMusic}>
+                                <NavBarEmoji>&#127911;</NavBarEmoji>
+                            </Nav.Link>
+                        </OverlayTrigger>
+                    }
+
+                    {props.isMusicPlaying &&
+                        <Nav.Link
+                            onClick={updateMusic}
+                            onMouseOver={()=>setShowingMusicPreviewTab(true)}
+                            onMouseLeave={()=>setShowingMusicPreviewTab(false)}
+                        >
                             <NavBarEmoji>&#127911;</NavBarEmoji>
+                            {showingMusicPreviewTab &&
+                                <PreviewMusicWindow />
+                            }
+                            <TabsCounterContainer>
+                                <TabsCounterImg>&#128310;</TabsCounterImg>
+                            </TabsCounterContainer>
                         </Nav.Link>
-                    </OverlayTrigger>
+                    }
 
                     {!props.isTerminalRunning &&
                         <OverlayTrigger
