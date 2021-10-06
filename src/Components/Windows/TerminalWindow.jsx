@@ -259,6 +259,7 @@ function TerminalWindow(props) {
             setLogo(data);
         });
         clear();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const hide = () => {
