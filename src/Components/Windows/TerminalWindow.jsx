@@ -4,10 +4,10 @@ import {
     WindowKindImg, WindowKindName,
     WindowButtons, WindowButton, TerminalBody,
     TerminalLine, TerminalInput
-} from './styles';
-import terminal_icon from '../images/cmd.png';
-import '../App.css';
-import { parent } from '../data';
+} from '../styles';
+import terminal_icon from '../../images/cmd.png';
+import '../../App.css';
+import { parent } from '../../data';
 
 import figlet from 'figlet';
 import standard from 'figlet/importable-fonts/Standard.js'

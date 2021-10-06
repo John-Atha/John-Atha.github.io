@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import '../App.css';
+import '../../App.css';
 import {
     PreviewSmallWindow, WindowBar, WindowKindName,
-    OneGame, GameIcon, Success } from './styles';
-import snake_icon from '../images/snake.png';
-import tetris_icon from '../images/tetris.png';
-import minesweeper_icon from '../images/minesweeper.png';
+    OneGame, GameIcon, Success } from '../styles';
+import snake_icon from '../../images/snake.png';
+import tetris_icon from '../../images/tetris.png';
+import minesweeper_icon from '../../images/minesweeper.png';
 
 function PreviewGameWindow(props) {
     const [game, setGame] = useState(props.game);

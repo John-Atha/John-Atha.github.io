@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { PreviewSmallWindow, WindowBar, WindowKindImg, WindowKindName, MarkdownContainer } from './styles';
+import { PreviewSmallWindow, WindowBar, WindowKindImg, WindowKindName, MarkdownContainer } from '../styles';
 import ReactMarkdown from 'react-markdown';
-import file_icon from '../images/file.png' ;
-import '../App.css';
+import file_icon from '../../images/file.png' ;
+import '../../App.css';
 
 
 function PreviewDocumentWindow(props) {
@@ -14,7 +14,7 @@ function PreviewDocumentWindow(props) {
     }, [props.doc])
 
     useEffect(() => {
-        import (`../documents/${doc.type}${doc.id}.md`)
+        import (`../../documents/${doc.type}${doc.id}.md`)
         .then(res => { 
             fetch(res.default)
             .then(res => { return res.text() })

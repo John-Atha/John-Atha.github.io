@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { NavbarImg, TabsCounterImg, TabsCounterContainer, NavBarEmoji } from './styles';
-import PreviewDirectoryWindow from './PreviewDirectoryWindow';
-import PreviewDocumentWindow from './PreviewDocumentWindow';
-import PreviewGameWindow from './PreviewGameWindow';
-import PreviewTerminalWindow from './PreviewTerminalWindow';
-import dir_icon from '../images/folder.png';
-import file_icon from '../images/file.png';
-import cmd_icon from '../images/cmd.png';
-import github_icon from '../images/Octocat.png';
-import '../App.css';
+import { NavbarImg, TabsCounterImg, TabsCounterContainer, NavBarEmoji } from '../styles';
+import PreviewDirectoryWindow from '../PreviewWindows/PreviewDirectoryWindow';
+import PreviewDocumentWindow from '../PreviewWindows/PreviewDocumentWindow';
+import PreviewGameWindow from '../PreviewWindows/PreviewGameWindow';
+import PreviewTerminalWindow from '../PreviewWindows/PreviewTerminalWindow';
+import dir_icon from '../../images/folder.png';
+import file_icon from '../../images/file.png';
+import cmd_icon from '../../images/cmd.png';
+import github_icon from '../../images/Octocat.png';
+import '../../App.css';
 
 function MyNavbar(props) {
     const [openDirectories, setOpenDirectories] = useState(props.openDirectories);

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { data, dir0 } from './data';
 import { ShortBio, BioHeader, BioDescription, BioDetail } from './Components/styles';
-import Contents from './Components/Contents';
-import DirectoryWindow from './Components/DirectoryWindow';
-import DocumentWindow from './Components/DocumentWindow';
-import GameWindow from './Components/GameWindow';
-import TerminalWindow from './Components/TerminalWindow';
-import MyNavbar from './Components/MyNavbar';
-import TopNavbar from './Components/TopNavbar';
+import Contents from './Components/Containers/Contents';
+import DirectoryWindow from './Components/Windows/DirectoryWindow';
+import DocumentWindow from './Components/Windows/DocumentWindow';
+import GameWindow from './Components/Windows/GameWindow';
+import TerminalWindow from './Components/Windows/TerminalWindow';
+import MyNavbar from './Components/Navbars/MyNavbar';
+import TopNavbar from './Components/Navbars/TopNavbar';
 
 function App() {
 

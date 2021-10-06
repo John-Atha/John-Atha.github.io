@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ContentsContainer, Error } from './styles.js';
+import { ContentsContainer, Error } from '../styles.js';
 import Directory from './Directory.jsx';
 import File from './File.jsx';
 import GithubUrl from './GithubUrl';

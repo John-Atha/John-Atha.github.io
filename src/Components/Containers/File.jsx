@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import file_icon from '../images/file.png';
-import { Container, Img, Name } from './styles';
+import file_icon from '../../images/file.png';
+import { Container, Img, Name } from '../styles';
 
 function File(props) {
     const [file, setFile] = useState(props.file);

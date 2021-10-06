@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import github_icon from '../images/Octocat.png';
-import { Container, Img, Name } from './styles';
+import github_icon from '../../images/Octocat.png';
+import { Container, Img, Name } from '../styles';
 
 function GithubUrl(props) {
     const [project, setProject] = useState(props.project);

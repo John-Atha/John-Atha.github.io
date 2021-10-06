@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import folder_icon from '../images/folder.png';
-import fav_icon from '../images/fav.png';
-import { Container, Img, Name } from './styles';
+import folder_icon from '../../images/folder.png';
+import fav_icon from '../../images/fav.png';
+import { Container, Img, Name } from '../styles';
 
 
 function Directory(props) {

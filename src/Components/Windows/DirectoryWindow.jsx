@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Contents from './Contents';
-import { Window, WindowBar, WindowKind, WindowKindImg, WindowKindName, WindowPill, NoBgButton, WindowButtons, WindowButton, ActiveWindows } from './styles';
-import dir_icon from '../images/folder.png';
-import '../App.css';
+import Contents from '../Containers/Contents';
+import { Window, WindowBar, WindowKind, WindowKindImg, WindowKindName, WindowPill, NoBgButton, WindowButtons, WindowButton, ActiveWindows } from '../styles';
+import dir_icon from '../../images/folder.png';
+import '../../App.css';
 
 function DirectoryWindow(props) {
     const [dir, setDir] = useState(props.dir);

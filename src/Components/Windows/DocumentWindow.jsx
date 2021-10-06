@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Window, WindowBar, WindowKind, WindowKindImg, WindowKindName, WindowPill, NoBgButton, WindowButtons, WindowButton, ActiveWindows, MarkdownContainer } from './styles';
+import { Window, WindowBar, WindowKind, WindowKindImg, WindowKindName, WindowPill, NoBgButton, WindowButtons, WindowButton, ActiveWindows, MarkdownContainer } from '../styles';
 import ReactMarkdown from 'react-markdown';
-import file_icon from '../images/file.png' ;
-import '../App.css';
+import file_icon from '../../images/file.png' ;
+import '../../App.css';
 
 
 function DocumentWindow(props) {
@@ -36,7 +36,7 @@ function DocumentWindow(props) {
     }
 
     useEffect(() => {
-        import (`../documents/${doc.type}${doc.id}.md`)
+        import (`../../documents/${doc.type}${doc.id}.md`)
         .then(res => { 
             fetch(res.default)
             .then(res => { return res.text() })

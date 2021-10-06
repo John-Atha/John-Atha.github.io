@@ -3,9 +3,9 @@ import {
     PreviewSmallWindow, WindowBar,
     WindowKindImg, WindowKindName,
     TerminalLine, TerminalBody
-} from './styles';
-import terminal_icon from '../images/cmd.png';
-import '../App.css';
+} from '../styles';
+import terminal_icon from '../../images/cmd.png';
+import '../../App.css';
 import figlet from 'figlet';
 import standard from 'figlet/importable-fonts/Standard.js';
 
