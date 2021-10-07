@@ -184,26 +184,9 @@ const dir3 = {
 }
 
 const dir4 = {
-    type: 'directory',
-    id: 5,
+    type: 'file',
+    id: 3,
     name: 'favourites',
-    'contents': [
-        {
-            type: 'file',
-            id: 2,
-            name: 'frameworks',
-        },
-        {
-            type: 'file',
-            id: 3,
-            name: 'fields',
-        },
-        {
-            type: 'file',
-            id: 4,
-            name: 'languages', 
-        }
-    ]
 }
 
 const dir1 = {
@@ -222,7 +205,12 @@ export const data = [
     {
         type: 'file',
         id: 1,
-        name: 'skills'
+        name: 'programming skills'
+    },
+    {
+        type: 'file',
+        id: 2,
+        name: 'about_me'
     },
     {
         type: 'deployment-url',

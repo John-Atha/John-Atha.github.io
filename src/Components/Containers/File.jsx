@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import file_icon from '../../images/file.png';
+import fav_icon from '../../images/fav.png';
 import { Container, Img, Name } from '../styles';
 
 function File(props) {
@@ -17,7 +18,7 @@ function File(props) {
             breakLine={props.breakLine}>
             <Img 
                 preview={props.preview}
-                src={file_icon}
+                src={file.name==='favourites' ? fav_icon : file_icon}
             />
             <Name preview={props.preview}>
                 {file.name}

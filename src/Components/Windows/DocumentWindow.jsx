@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Window, WindowBar, WindowKind, WindowKindImg, WindowKindName, WindowPill, NoBgButton, WindowButtons, WindowButton, ActiveWindows, MarkdownContainer } from '../styles';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import file_icon from '../../images/file.png' ;
 import '../../App.css';
 
@@ -88,7 +89,7 @@ function DocumentWindow(props) {
                 </WindowButtons>
             </WindowBar>
             <MarkdownContainer>
-                <ReactMarkdown children={text} />
+                <ReactMarkdown rehypePlugins={[rehypeRaw]} children={text} />
             </MarkdownContainer>
         </Window>
     )

@@ -43,7 +43,7 @@ export const Container = styled.div`
     ${props => !props.preview && `
         margin: 10px;
         padding: 3px;
-        width: 100px;    
+        width: 120px;    
     `}
     ${props => props.breakLine && css`
         margin-right: auto !important;
@@ -79,7 +79,8 @@ export const Name = styled.h6`
         font-size: 0.3rem;
     `}
     ${props => !props.preview && `
-        height: 40px;
+        max-height: 40px;
+        font-size: 1rem;
     `}
     overflow-y: hidden;
     &:hover {
@@ -199,7 +200,7 @@ export const WindowPill = styled.div`
     border-right: 1px solid grey;
     padding: 3px;
     &:hover {
-        background-color: white;
+        background-color: black;
     }
     font-size: 0.9rem;
 `
@@ -217,7 +218,7 @@ export const WindowButtons = styled.div`
     flex-flow: row wrap;
     position: absolute;
     top: 0px;
-    right: 0px;
+    right: -15px;
     height: inherit;
     width: 100px;
 `
@@ -225,6 +226,8 @@ export const WindowButtons = styled.div`
 export const WindowButton = styled.button`
     font-size: 0.8rem;
     margin: auto 0px;
+    background-color: inherit;
+    border: none;
 `
 
 export const ActiveWindows = styled.div`
