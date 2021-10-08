@@ -13,7 +13,7 @@ function DeploymentUrl(props) {
 
     const icons = {
         'PostOn': poston_icon,
-        'AskMeAnything': ask_icon,
+        'AskMe Anything': ask_icon,
         'FootLand': football_icon,
         'Url Formatter': npm_icon,
         'Country Explorer': earth_icon,

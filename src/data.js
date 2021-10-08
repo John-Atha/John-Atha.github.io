@@ -12,7 +12,7 @@ const dir2 = {
         {
             type: 'github-url',
             id: 2,
-            name: 'AskMeAnything',
+            name: 'AskMe Anything',
             url: 'https://www.github.com/John-Atha/askmeanything',
         },
         {
@@ -192,7 +192,7 @@ const dir4 = {
 const dir1 = {
     type: 'directory',
     id: 2,
-    name: 'projects codes',
+    name: 'source codes',
     contents: [
         dir2,
         dir3,
@@ -221,7 +221,7 @@ export const data = [
     {
         type: 'deployment-url',
         id: 2,
-        name: 'AskMeAnything',
+        name: 'AskMe Anything',
         url: 'https://askmeanything52.herokuapp.com',
     },
     {
