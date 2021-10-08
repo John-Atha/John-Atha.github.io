@@ -42,9 +42,63 @@
 - - -
 
 ## Programming Languages
-
+* During my studies and while building some side projects, I have been coding in a number of different languages.
+* I have been writing in:
+    * <u>C++</u> for the:
+        * `Programming Techniques`
+        * `Programming Languages I`
+        * `Algorithms and Complexity` 
+    courses of my university.
+    * <u>Python</u> for the:
+        * `Programming Languages I` course of my university
+        * `CS50's Introduction to Artificial Intelligence with Python` of HarvardX
+        * `CS50's Web Programming with Python and JavaScript` of HarvardX
+    * <u>Javascript</u> for the:
+        * `Software-as-a-Service Technologies` course of my university
+        * `Software Engineering`course of my university
+        * `CS50's Web Programming with Python and JavaScript` of HarvardX
+        * several side projects of mine, that you can find on my Github profile
+    * <u>Java</u> for the:
+        * `Programming Languages I` course of my university
+        * `Software Engineering` course of my university
+    * <u>Typescript</u> for the:
+        * `Software-as-a-Service Technologies` course of my university
+    * <u>Prolog</u> and <u>Standard ML</u> for the:
+        * `Programming Languages I` course of my university
 - - -
 
 ## Frameworks
 
+* I have also used several frameworks:
+    * <u>ReactJS</u> (Javascript) for the:
+        * `CS50's Web Programming with Python and JavaScript` of HarvardX
+        * `Software-as-a-Service Technologies` course of my university
+        * `Software Engineering` course of my university
+        * some other side projects that you can find on my Github profile
+    * <u>Bootstrap</u> for the:
+        * front-end of almost every project I have built
+    * <u>Django</u> (Python) for the:
+        * `CS50's Web Programming with Python and JavaScript` of HarvardX
+    * <u>Node</u>, <u>ExpressJS</u>, and <u>NestJS</u> (Javascript, Typescript) for the:
+        * `Software-as-a-Service Technologies` course of my university
+    * <u>SpringBoot</u> (Java) for the:
+        * `Software Engineering` course of my university
+    * <u>Tensorflow Keras</u> (python) for the:
+        * `CS50's Introduction to Artificial Intelligence with Python` of HarvardX
+
 - - -
+
+## Databases
+
+* For my web projects that include back-end, I have used the following databases:        
+    * <u>MySQL</u>
+    * <u>PostgreSQL</u>
+    * <u>SQLite</u>
+    * <u>MongoDB</u>
+
+- - - 
+
+## Deployment
+* I have deployed several projetcs using:
+    * <u>Heroku</u>
+    * <u>Github pages</u>
