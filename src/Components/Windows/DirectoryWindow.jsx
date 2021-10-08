@@ -72,7 +72,7 @@ function DirectoryWindow(props) {
                         </WindowButton>
                     }
                     <WindowButton onClick={props.closeAllDirs} >
-                        &#10060;
+                        &#10006;
                     </WindowButton>
                 </WindowButtons>
             </WindowBar>

@@ -107,7 +107,7 @@ function GameWindow(props) {
                         </WindowButton>
                     }
                     <WindowButton onClick={props.stopPlaying} >
-                        &#10060;
+                        &#10006;
                     </WindowButton>
                 </WindowButtons>
             </WindowBar>                

@@ -98,6 +98,14 @@ function TerminalWindow(props) {
         props.setShowingGameWindow(true);
         return;        
     }
+
+    const music = () => {
+        if (!props.isMusicPlaying) {
+            props.setIsMusicPlaying(true);
+        }
+        props.addToShowingNow('music');
+        props.setShowingMusicWindow(true);
+    }
   
     const binary_commands = {
         cd: (smth) => { return goto(smth) },
@@ -109,7 +117,8 @@ function TerminalWindow(props) {
         clear: () => { return clear() },
         help: () => { return help() },
         exit: () => { return props.closeTerminal() },
-        play: () => { return play() }
+        play: () => { return play() },
+        music: () => { return music() }
     }
 
     const descriptions = {
@@ -120,6 +129,7 @@ function TerminalWindow(props) {
         'help':  `help                       : lists the available commands`,
         'exit':  `exit                        : exits the terminal`,
         'play':  `play                       : opens the gaming machine`,
+        'music':  `music                    : opens the music player`,
     }
 
     const goto = (dir_name) => {
@@ -297,7 +307,7 @@ function TerminalWindow(props) {
                         </WindowButton>
                     }
                     <WindowButton onClick={props.closeTerminal} >
-                        &#10060;
+                        &#10006;
                     </WindowButton>
                 </WindowButtons>
             </WindowBar>

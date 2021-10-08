@@ -84,7 +84,7 @@ function DocumentWindow(props) {
                         </WindowButton>
                     }
                     <WindowButton onClick={props.closeAllDocs} >
-                        &#10060;
+                        &#10006;
                     </WindowButton>
                 </WindowButtons>
             </WindowBar>

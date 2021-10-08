@@ -53,7 +53,7 @@ function MusicWindow(props) {
                         </WindowButton>
                     }
                     <WindowButton onClick={props.closeMusic} >
-                        &#10060;
+                        &#10006;
                     </WindowButton>
                 </WindowButtons>
 

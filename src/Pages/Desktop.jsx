@@ -254,6 +254,9 @@ function Desktop() {
           setPlaying={setPlaying}
           playing={playing}
           setShowingGameWindow={setShowingGameWindow}
+          isMusicPlaying={isMusicPlaying}
+          setIsMusicPlaying={setIsMusicPlaying}
+          setShowingMusicWindow={setShowingMusicWindow}
         />
       }
       {isMusicPlaying && 
