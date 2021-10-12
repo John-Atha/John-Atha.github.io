@@ -5,6 +5,7 @@ import football_icon from '../../images/football.png';
 import earth_icon from '../../images/earth.png';
 import maths_icon from '../../images/math.png';
 import npm_icon from '../../images/npm.png';
+import cooking_icon from '../../images/greek-cooking.png';
 
 import { Container, Img, Name } from '../styles';
 
@@ -18,6 +19,7 @@ function DeploymentUrl(props) {
         'Url Formatter': npm_icon,
         'Country Explorer': earth_icon,
         'Maths Game': maths_icon,
+        'Greek Cooking': cooking_icon,
     }
 
     useEffect(() => {

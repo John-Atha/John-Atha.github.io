@@ -99,6 +99,12 @@ const dir2 = {
             name: 'Instabot',
             url: 'https://github.com/John-Atha/Instabot',
         },
+        {
+            type: 'github-url',
+            id: 29,
+            name: 'Greek Cooking',
+            url: 'https://github.com/John-Atha/greek-cooking',
+        },
     ]
 
 }
@@ -110,7 +116,7 @@ const dir3 = {
     contents: [
         {
             type: 'github-url',
-            id: 16,
+            id: 28,
             name: 'Questions',
             url: 'https://github.com/John-Atha/AI-Questions',
         },
@@ -223,6 +229,12 @@ export const data = [
         id: 2,
         name: 'AskMe Anything',
         url: 'https://askmeanything52.herokuapp.com',
+    },
+    {
+        type: 'deployment-url',
+        id: 6,
+        name: 'Greek Cooking',
+        url: 'https://john-atha.github.io/greek-cooking/#/',
     },
     {
         type: 'deployment-url',
