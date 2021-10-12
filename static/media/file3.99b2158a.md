@@ -38,9 +38,10 @@ When building a front-end module, I enjoy the process of handling and adjusting 
 
 ### Favourite projects built
 * I have built several projects, which you can find on my Github profile.
-* If I could choose five of them, I would mark out the:
+* If I could choose six of them, I would mark out the:
     * Poston: a social media web app, like Twitter
     * AskMeAnything: a web app for posting questions and answers, like Stack Overflow.
     * Thundercars: a web app for EV charging
     * AI-Traffic: a convolutional neural network for classifying images of road signs
+    * Greek-cooking: a web app for uploading and searching for greek food recipes
     * My portfolio 😜
