@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.1043df1f.chunk.css",
-    "main.js": "/static/js/main.70d8ea93.chunk.js",
-    "main.js.map": "/static/js/main.70d8ea93.chunk.js.map",
+    "main.js": "/static/js/main.172cf466.chunk.js",
+    "main.js.map": "/static/js/main.172cf466.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.6c72487b.js",
     "runtime-main.js.map": "/static/js/runtime-main.6c72487b.js.map",
     "static/css/2.6474a010.chunk.css": "/static/css/2.6474a010.chunk.css",
@@ -25,6 +25,7 @@
     "static/media/file1.md": "/static/media/file1.92f105c7.md",
     "static/media/file2.md": "/static/media/file2.3edec1d7.md",
     "static/media/file3.md": "/static/media/file3.c5727d70.md",
+    "static/media/greek-cooking.84abdd67.png": "/static/media/greek-cooking.84abdd67.png",
     "static/media/logout.34465fcf.png": "/static/media/logout.34465fcf.png",
     "static/media/math.7fcc02ed.png": "/static/media/math.7fcc02ed.png",
     "static/media/minesweeper.4acb5537.png": "/static/media/minesweeper.4acb5537.png",
@@ -37,6 +38,6 @@
     "static/css/2.6474a010.chunk.css",
     "static/js/2.38843d8a.chunk.js",
     "static/css/main.1043df1f.chunk.css",
-    "static/js/main.70d8ea93.chunk.js"
+    "static/js/main.172cf466.chunk.js"
   ]
 }
