@@ -420,7 +420,7 @@ export const TerminalInput = styled.input`
 `
 
 export const MyTooltip = styled.div`
-    background-color: rgba(163, 13, 13, 0.1);
+    background-color: rgba(163, 13, 13);
     color: white;
     padding: 2px 4px;
     border: none;
