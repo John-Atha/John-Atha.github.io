@@ -418,3 +418,14 @@ export const TerminalInput = styled.input`
     }
     width: 100%;
 `
+
+export const MyTooltip = styled.div`
+    background-color: rgba(163, 13, 13, 0.1);
+    color: white;
+    padding: 2px 4px;
+    border: none;
+    border-radius: 7px;
+    position: absolute;
+    z-index: 1080;
+    opacity: 0.9;
+`

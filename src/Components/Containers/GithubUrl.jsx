@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import github_icon from '../../images/Octocat.png';
-import { Container, Img, Name } from '../styles';
+import { Container, Img, Name, MyTooltip } from '../styles';
 
 function GithubUrl(props) {
     const [project, setProject] = useState(props.project);
+    const [showTooltip, setShowTooltip] = useState(false);
 
     useEffect(() => {
         setProject(props.project);
@@ -13,6 +14,8 @@ function GithubUrl(props) {
         <Container
             mobile={window.innerWidth<400}
             onDoubleClick={()=>window.open(project.url, '_blank')}
+            onMouseOver={()=>setShowTooltip(true)}
+            onMouseOut={()=>setShowTooltip(false)}
             preview={props.preview}>
             <Img 
                 preview={props.preview}
@@ -21,6 +24,11 @@ function GithubUrl(props) {
             <Name preview={props.preview}>
                 {project.name}
             </Name>
+            {showTooltip &&
+                <MyTooltip>
+                    Double-click to open
+                </MyTooltip>
+            }
         </Container>
     )
 }

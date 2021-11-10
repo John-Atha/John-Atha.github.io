@@ -43,7 +43,7 @@ function Contents(props) {
                             <GithubUrl
                                 preview={props.preview}
                                 project={value}
-                                key={value.url}
+                                key={`${value.url}-${Math.round(Math.random()*100, 2)}`}
                             />
                         )
                     }

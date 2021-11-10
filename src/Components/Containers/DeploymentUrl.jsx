@@ -7,10 +7,11 @@ import maths_icon from '../../images/math.png';
 import npm_icon from '../../images/npm.png';
 import cooking_icon from '../../images/greek-cooking.png';
 
-import { Container, Img, Name } from '../styles';
+import { Container, Img, Name, MyTooltip } from '../styles';
 
 function DeploymentUrl(props) {
     const [project, setProject] = useState(props.project);
+    const [showTooltip, setShowTooltip] = useState(false);
 
     const icons = {
         'PostOn': poston_icon,
@@ -30,6 +31,8 @@ function DeploymentUrl(props) {
         <Container
             mobile={window.innerWidth<400}
             onDoubleClick={()=>window.open(project.url, '_blank')}
+            onMouseOver={()=>setShowTooltip(true)}
+            onMouseOut={()=>setShowTooltip(false)}
             preview={props.preview}>
             <Img 
                 preview={props.preview}
@@ -39,6 +42,11 @@ function DeploymentUrl(props) {
             <Name preview={props.preview}>
                 {project.name}
             </Name>
+            {showTooltip &&
+                <MyTooltip>
+                    Double-click to open
+                </MyTooltip>
+            }
         </Container>
     )
 }
