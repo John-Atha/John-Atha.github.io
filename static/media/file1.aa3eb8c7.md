@@ -27,17 +27,29 @@
     * [Computer Network Security](https://www.ece.ntua.gr/en/undergraduate/courses/3370)
     * [Internet Applications](https://www.ece.ntua.gr/en/undergraduate/courses/3346)
 
-#### HarvardX online courses
+#### Extracurricular online courses
 * During the year 2021, I have been looking for online courses to take alongside my University studies.
 * My main goal was to gain new skills and build more projects closer to the real world.
 * I did some research and found these two appealing courses about web development, Artificial Intelligence, and Machine Learning, powered by HarvardX:
     * [CS50's Introduction to Artificial Intelligence with Python](https://learning.edx.org/course/course-v1:HarvardX+CS50AI+1T2020/home)
     * [CS50's Web Programming with Python and JavaScript](https://learning.edx.org/course/course-v1:HarvardX+CS50W+Web/home)
 * I completed those courses and gained the two following certificates:
+
 <div style="layout: flex;">
-    <img src='https://res.cloudinary.com/da7mbf3bi/image/upload/v1633627208/CS50AI_liehcz.png' alt='web certificate' width='45%' style="margin: 0% 2%">
-    <img src='https://res.cloudinary.com/da7mbf3bi/image/upload/v1633627219/CS50W_ufovw1.png' alt='web certificate'  width='45%' style="margin: 0% 2%">
+    <img src='https://res.cloudinary.com/da7mbf3bi/image/upload/v1633627208/CS50AI_liehcz.png' alt='ai certificate' width='45%' style="margin: 0% 2%" />
+    <img src='https://res.cloudinary.com/da7mbf3bi/image/upload/v1633627219/CS50W_ufovw1.png' alt='web certificate'  width='45%' style="margin: 0% 2%" />
 </div>
+
+* Currently I am taking the [Deep Learning Specialization](https://www.coursera.org/specializations/deep-learning) at Coursera. The specialization consists of the following courses:
+    * [Neural Networks and Deep Learning](https://www.coursera.org/learn/neural-networks-deep-learning?specialization=deep-learning)
+    * [Improving Deep Neural Networks: Hyperparameter Tuning, Regularization and Optimization](https://www.coursera.org/learn/deep-neural-network?specialization=deep-learning)
+    * [Structuring Machine Learning Projects](https://www.coursera.org/learn/machine-learning-projects?specialization=deep-learning)
+    * [Convolutional Neural Networks](https://www.coursera.org/learn/convolutional-neural-networks?specialization=deep-learning)
+    * [Sequence Models](https://www.coursera.org/learn/nlp-sequence-models?specialization=deep-learning)
+
+* I have completed the first course (with grade 100%) and gained the following certificate:
+
+    <img src='https://res.cloudinary.com/da7mbf3bi/image/upload/v1636552571/DeepLearningCertificate-1_zynsqq.png' alt='nn certificate' width='45%' style="margin: 0% 2%" />
 
 - - -
 
